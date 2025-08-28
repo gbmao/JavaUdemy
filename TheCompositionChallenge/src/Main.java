@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args){
 
-    SmartKitchen kitchen = new SmartKitchen();
+    SmartKitchen kitchen = new SmartKitchen(new CoffeeMaker("coffe"), new Dishwasher("ae"), new Refrigerator("aae") );
 
     kitchen.doKitchenWork();
     kitchen.addWater();

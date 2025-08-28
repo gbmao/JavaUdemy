@@ -11,6 +11,7 @@ public class Main {
         PersonalComputer thePC = new PersonalComputer("2208", "Dell",
                 theCase, theMonitor, theMotherboard);
 
+
 //        thePC.getMonitor().drawPixelArt(10, 10, "red");
 //        thePC.getMotherboard().loadProgram("Windows OS");
 //        thePC.getComputerCase().pressPowerButton();
