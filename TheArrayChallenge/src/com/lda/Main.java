@@ -5,7 +5,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
 
-        int[] resultArray = getRandomArray(10);
+        int[] resultArray = getRandomArray(6);
         System.out.println(Arrays.toString(resultArray));
         Arrays.sort(resultArray);
         System.out.println(Arrays.toString(resultArray));
