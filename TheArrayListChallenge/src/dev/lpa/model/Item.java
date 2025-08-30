@@ -22,5 +22,23 @@ public class Item {
         count += n;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getType() {
+        return type;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+
+    @Override
+    public String toString() {
+        return " Nome = " + name +
+                " tipo = " + type +
+                " quantidade = " + count + "\n";
+    }
 }

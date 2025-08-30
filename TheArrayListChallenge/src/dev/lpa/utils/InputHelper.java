@@ -28,7 +28,7 @@ public class InputHelper {
                 isInt = true;
             }
         }
-
+        scanner.nextLine();
         return response;
     }
 
@@ -38,11 +38,10 @@ public class InputHelper {
         boolean notValid = true;
          try {
              System.out.println("Digite os items separados por virgula: ");
-              response = scanner.next();
+              response = scanner.nextLine().trim();
          } catch (InputMismatchException e) {
              System.out.println("Digitou algo errado ai");
          }
-
 
 
          return  response.trim().toLowerCase().split(",");
