@@ -6,8 +6,13 @@ import java.util.List;
 
 public class ShoppingList {
 
+    private final List<Item> shoppingList;
 
-    public List<Item> shoppingList = new ArrayList<>();
+    public ShoppingList() {
+        this.shoppingList = new ArrayList<>();
+    }
+
+    //public List<Item> shoppingList = new ArrayList<>();
 
     public void addItem(Item item) {
 

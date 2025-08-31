@@ -26,6 +26,7 @@ public class ConsoleUI {
                 break;
                 case 4:
                     System.out.println(lista);
+                    break;
                 default:
                     System.out.println("Como?");
                     break;
