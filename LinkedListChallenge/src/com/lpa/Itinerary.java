@@ -59,9 +59,11 @@ public class Itinerary {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Sydney");
+        StringBuilder sb = new StringBuilder("Sydney\n");
         for (Places i : itinerary) {
-
+            if(i.getTown().equals("Sydney")) {
+                continue;
+            }
             sb.append("--> ").append(i.getTown()).append(" is ").append(i.getKmFromSydney()).append(" from sydney\n");
         }
 
