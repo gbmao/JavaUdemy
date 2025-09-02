@@ -1,5 +1,7 @@
 package com.lpa;
 
+import java.util.ArrayList;
+
 public class Places {
     private String town;
     private int kmFromSydney;
