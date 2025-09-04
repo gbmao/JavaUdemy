@@ -42,9 +42,14 @@ public class Test {
         i.fly();
     }
 
-    private static void getToship(FlyingToShip chopper) {
+    private static void getToship(FlightEnabled chopper) {
         chopper.takeOff();
         chopper.fly();
         chopper.land();
+
+        if(chopper instanceof TransportHelicopter oi){
+            oi.achieveOrbit();
+        }
+
     }
 }

@@ -94,7 +94,7 @@ interface OrbitEarth extends FlightEnabled {
     }
 }
 
-class TransportHelicopter implements FlyingToShip {
+class TransportHelicopter implements FlyingToShip, OrbitEarth {
 
 
     private final double maximumSpeed = 475.00;
@@ -109,6 +109,7 @@ class TransportHelicopter implements FlyingToShip {
     @Override
     public void land() {
         stage = transition(stage);
+//        achieveOrbit();
     }
 
     @Override
@@ -121,6 +122,21 @@ class TransportHelicopter implements FlyingToShip {
         double actualSpeed = maximumSpeed * (percentage / 100);
         if(actualSpeed> 80) System.out.println("SPEED TOO HIGH! ENGINES MAY FAIL!!!");
         return actualSpeed;
+    }
+
+    @Override
+    public void achieveOrbit() {
+        System.out.println("Somehow " + getClass().getName() + " achieved planet orbit");
+    }
+
+    @Override
+    public double speedInMiles(double speed) {
+        return FlyingToShip.super.speedInMiles(speed);
+    }
+
+    @Override
+    public FlightStages transition(FlightStages stage) {
+        return FlyingToShip.super.transition(stage);
     }
 }
 
