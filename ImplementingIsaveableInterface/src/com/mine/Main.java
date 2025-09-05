@@ -6,5 +6,6 @@ public class Main {
         Player player = new Player("Tim", 10, 15);
 
         System.out.println(player);
+
     }
 }
