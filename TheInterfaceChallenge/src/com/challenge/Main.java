@@ -13,6 +13,10 @@ public class Main {
                 UsageType.ENTERTAINMENT));
         mappables.add(new Building("Stadium Australia", UsageType.SPORTS));
 
+        mappables.add(new UtilityLine("College St", UtilityType.FIBER_OPTIC));
+        mappables.add(new UtilityLine("Olympic Blvd", UtilityType.WATER));
+
+
         for (var m : mappables) {
             Mappable.mapIt(m);
         }
