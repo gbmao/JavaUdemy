@@ -16,6 +16,7 @@ public class MyLinkedList implements NodeList {
 
     @Override
     public boolean addItem(ListItem item) {
+        if (item == null) return false;
         ListItem currentItem = getRoot();
         // dealing with root null
         if (getRoot() == null) {
@@ -127,14 +128,15 @@ public class MyLinkedList implements NodeList {
 
     @Override
     public void traverse(ListItem root) {
+
         if (root == null) {
             System.out.println("The list is empty");
         } else {
-            var print = root;
-            while (print != null) {
-                System.out.println(print.getValue());
-                print = print.next();
+            while (root != null) {
+                System.out.println(root.getValue());
+                root = root.next();
             }
+
         }
 
     }
