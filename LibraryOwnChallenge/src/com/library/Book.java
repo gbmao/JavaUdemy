@@ -1,16 +1,29 @@
 package com.library;
 
-enum Genre {ROMANCE, DIDACTIC, POETRY}
 
-public class Book extends ItemLibrary implements Borrowable{
+public class Book extends ItemLibrary implements Borrowable {
     private String author;
     private int totalPages;
+    private Genre genre;
 
+    public enum Genre {
+        ROMANCE, DIDACTIC, POETRY, DEFAULT;
 
-    public Book(String title, String author, int totalPages) {
+        private static Genre fromString(String genre) {
+            return switch (genre.toUpperCase()) {
+                case "ROMANCE" -> Genre.ROMANCE;
+                case "DIDACTIC" -> Genre.DIDACTIC;
+                case "POETRY" -> Genre.POETRY;
+                default -> Genre.DEFAULT;
+            };
+        }
+    }
+
+    public Book(String title, String author, int totalPages, String genre) {
         super(title);
         this.author = author;
         this.totalPages = totalPages;
+        this.genre = Genre.fromString(genre);
     }
 
     @Override
@@ -21,7 +34,7 @@ public class Book extends ItemLibrary implements Borrowable{
 
     @Override
     public void borrow() {
-        if(isBorrowed()) {
+        if (isBorrowed()) {
             System.out.println("Item unavailable");
         } else {
             System.out.println("Borrowin...");
@@ -31,6 +44,8 @@ public class Book extends ItemLibrary implements Borrowable{
 
     @Override
     public void returnDate() {
-
+        System.out.println("Some date");
     }
+
+
 }
