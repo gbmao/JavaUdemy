@@ -1,10 +1,12 @@
 package com.library;
 
 
-public class Book extends ItemLibrary implements Borrowable {
-    private String author;
+public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
+    protected String author;
     private int totalPages;
     private Genre genre;
+
+
 
     public enum Genre {
         ROMANCE, DIDACTIC, POETRY, DEFAULT;
@@ -26,6 +28,7 @@ public class Book extends ItemLibrary implements Borrowable {
         this.genre = Genre.fromString(genre);
     }
 
+    //TODO better output
     @Override
     public String toString() {
         return getTitle() + " Author: " + author + isBorrowed();
@@ -46,6 +49,14 @@ public class Book extends ItemLibrary implements Borrowable {
     public void returnDate() {
         System.out.println("Some date");
     }
+
+    @Override
+    public int compareTo(Book book) {
+//        System.out.println(book.author + " is " +book.author.compareTo(this.author) + " to " + this.author );
+        return this.getTitle().compareTo(book.getTitle());
+    }
+
+
 
 
 }
