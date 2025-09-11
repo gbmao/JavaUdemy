@@ -21,19 +21,11 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
         return totalPages;
     }
 
-
-    public enum Genre {
-        ROMANCE, DIDACTIC, POETRY, DEFAULT;
-
-        private static Genre fromString(String genre) {
-            return switch (genre.toUpperCase()) {
-                case "ROMANCE" -> Genre.ROMANCE;
-                case "DIDACTIC" -> Genre.DIDACTIC;
-                case "POETRY" -> Genre.POETRY;
-                default -> Genre.DEFAULT;
-            };
-        }
+    @Override
+    public Genre byGenre() {
+        return genre;
     }
+
 
     public Book(String title, String author, int totalPages, String genre) {
         super(title);
@@ -49,6 +41,17 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
         return getTitle() + "\tAuthor: " + author + "\tgenre: " + genre+ "\tTotalPages: " +totalPages + "\t borrow: " + this.isBorrowed();
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
 
     @Override
     public void borrow() {
