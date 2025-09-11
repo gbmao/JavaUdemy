@@ -6,6 +6,20 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
     protected int totalPages;
     protected Genre genre;
 
+    @Override
+    public String byName() {
+        return getTitle();
+    }
+
+    @Override
+    public String byAuthor() {
+        return author;
+    }
+
+    @Override
+    public Integer byPages() {
+        return totalPages;
+    }
 
 
     public enum Genre {

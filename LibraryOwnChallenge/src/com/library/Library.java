@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Library<T extends Borrowable> {
+public class Library<T extends Borrowable & Matchable> {
 
     private List<T> library = new ArrayList<T>();
 
@@ -53,6 +53,21 @@ public class Library<T extends Borrowable> {
         library.sort(comparator);
     }
 
+    //TODO a switch to search by type
+    // expand findMatch to receive all possible Matchs
+    public T findMatch(String type, String name) {
+
+        for (T t : library) {
+            if(t.byName().equalsIgnoreCase(name)){
+                return t;
+            }
+        }
+        return null;
+
+    }
+    //TODO a search list
+    // should receive one or more parameters
+    // and list all items with those parameters
 
     //TODO method for removing items from library
 
