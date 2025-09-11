@@ -12,5 +12,8 @@ public class Main {
 
         Layer<Park> parkLayer = new Layer<>(nationalUSParks);
         parkLayer.renderLayer();
+        parkLayer.addElements(new Park("aqui", "723472367423,128371823712"));
+        Park parasd = new Park("aff", "91283,128731823");
+        parkLayer.addElements(parasd);
     }
 }

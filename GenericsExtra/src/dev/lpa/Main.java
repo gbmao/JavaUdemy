@@ -2,6 +2,7 @@ package dev.lpa;
 
 import dev.lpa.mode.LPAStudent;
 import dev.lpa.mode.Student;
+import dev.lpa.util.QueryItem;
 import dev.lpa.util.QueryList;
 
 import java.util.ArrayList;
@@ -33,6 +34,11 @@ public class Main {
         var matches = queryList.getMatches("Course", "Python");
 
         printMoreList(matches);
+
+        var students2021 =
+                QueryList.getMatches(students,"YearStarted", "2021");
+        printMoreList(students2021);
+
     }
 
     public static void printMoreList(List<? extends Student> students) {
