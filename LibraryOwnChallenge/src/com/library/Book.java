@@ -26,12 +26,13 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
         this.author = author;
         this.totalPages = totalPages;
         this.genre = Genre.fromString(genre);
+
     }
 
     //TODO better output
     @Override
     public String toString() {
-        return getTitle() + "\tAuthor: " + author + "\tgenre: " + genre+ "\tTotalPages: " +totalPages;
+        return getTitle() + "\tAuthor: " + author + "\tgenre: " + genre+ "\tTotalPages: " +totalPages + "\t borrow: " + this.isBorrowed();
     }
 
 
@@ -41,7 +42,7 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
             System.out.println("Item unavailable");
         } else {
             System.out.println("Borrowin...");
-            setBorrowed(true);
+            this.setBorrowed(true);
         }
     }
 

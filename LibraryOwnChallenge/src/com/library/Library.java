@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Library <T extends Borrowable>  {
+public class Library<T extends Borrowable> {
 
     private List<T> library = new ArrayList<T>();
 
@@ -21,7 +21,8 @@ public class Library <T extends Borrowable>  {
 
             return switch (sortType.toLowerCase()) {
                 case "author" -> book.author.compareTo(t1.author);
-                case "genre" -> book.genre.compareTo(t1.genre);
+                case "genre" ->
+                        book.genre.name().compareTo(t1.genre.name()); // without .name() genre uses the order it was created
                 case "totalpages" -> book.totalPages - t1.totalPages;
                 default -> book.getTitle().compareTo(t1.getTitle());
             };
@@ -41,9 +42,9 @@ public class Library <T extends Borrowable>  {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (T t : library){
-           sb.append(t);
-           sb.append("\n");
+        for (T t : library) {
+            sb.append(t);
+            sb.append("\n");
         }
         return sb.toString();
     }
@@ -53,12 +54,29 @@ public class Library <T extends Borrowable>  {
     }
 
 
-    //TODO implement search by title, author name, genre (maybe number of pages?)
     //TODO method for removing items from library
-    //TODO and listAvailableItems to show everything available
 
+    /**
+     *
+     * @return all books with !isBorrowed() as String
+     */
+    public String isAvailable() {
 
+        StringBuilder sb = new StringBuilder();
+
+        for (T t : library) {
+            if (!t.isBorrowed()) { //if isBorrowed is false print results
+                sb.append(t);
+                sb.append("\n");
+            }
+
+        }
+        return sb.toString();
+    }
 }
+
+
+
 
 
 

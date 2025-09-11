@@ -1,12 +1,14 @@
 package com.library;
 
-abstract class ItemLibrary {
+
+abstract class ItemLibrary implements Borrowable {
 
     private String title;
-    private boolean isBorrowed = false;
+    private boolean borrowed;
 
     public ItemLibrary(String title) {
         this.title = title;
+        this.borrowed = false;
     }
 
     public String getTitle() {
@@ -14,10 +16,10 @@ abstract class ItemLibrary {
     }
 
     public boolean isBorrowed() {
-        return isBorrowed;
+        return borrowed;
     }
 
     public void setBorrowed(boolean borrowed) {
-        isBorrowed = borrowed;
+        this.borrowed = borrowed;
     }
 }

@@ -38,9 +38,15 @@ public class Main {
         aq = new Library.BookComparator("totalPages");
         library.sortBy(aq);
         System.out.println(library);
+
+        b1.borrow();
+        b2.borrow();
+        b1.borrow();
         aq = new Library.BookComparator("");
         library.sortBy(aq);
         System.out.println(library);
+
+        System.out.println(library.isAvailable());
 
 
 
