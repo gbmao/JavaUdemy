@@ -79,8 +79,10 @@ public class Main {
         Util search = new Util<>(library);
         search.addToSearch("Genre", "romance");
         System.out.println(search);
-//        search.addToSearch("author", "Homer", search);
-//        System.out.println(search);
+        search.addToSearch("author", "Homer");
+        System.out.println(search);
+        search.addToSearch("author", "Machado de Assis");
+        System.out.println(search);
 
 
 

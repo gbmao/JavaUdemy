@@ -8,7 +8,7 @@ import com.library.Matchable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Util<T extends Borrowable & Matchable> extends Library<T> {
+public class Util<T extends Borrowable & Matchable> {
 
     private ArrayList<T> searchList = new ArrayList<>();
     private Library<T> library;
@@ -18,18 +18,21 @@ public class Util<T extends Borrowable & Matchable> extends Library<T> {
     }
 
     public ArrayList<T> addToSearch(String type, String name) {
-
-         searchList.addAll(library.findMatch(type,name));
-         return searchList;
+        if (searchList.isEmpty()) {
+            searchList = library.findMatch(type, name);
+        } else {
+            Library<T> library1 = new Library<>();
+            library1.addElements(searchList);
+            searchList = library1.findMatch(type,name);
+        }
+        return searchList;
     }
 
-    public ArrayList<T> addToSearch(String type, String name, Util<T> search){
+    public ArrayList<T> addToSearch(String type, String name, Util<T> search) {
 
 
         return searchList;
     }
-
-
 
 
     @Override
@@ -37,18 +40,19 @@ public class Util<T extends Borrowable & Matchable> extends Library<T> {
         StringBuilder sb = new StringBuilder();
 
         sb.append(String.format("%-35s %-25s %-12s %-6s\n", "Title", "Author", "Genre", "Pages"));
-        sb.append("-".repeat(80)); // linha separadora
+        sb.append("-".repeat(80));
         sb.append("\n");
+        if(searchList.isEmpty()) return "Not results";
 
         for (T t : searchList) {
-            if (t instanceof Book book) { // cast seguro
+            if (t instanceof Book book) {
                 sb.append(String.format("%-35s %-25s %-12s %-6d\n",
                         book.getTitle(),
                         book.getAuthor(),
                         book.getGenre().name(),
                         book.getTotalPages()));
             } else {
-                sb.append(t).append("\n"); // fallback
+                sb.append(t).append("\n");
             }
         }
         return sb.toString();

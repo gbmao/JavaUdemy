@@ -44,6 +44,10 @@ public class Library<T extends Borrowable & Matchable >  {
         library.addAll(List.of(elements));
     }
 
+    public final void addElements(ArrayList<T> elements) {
+        library.addAll(elements);
+    }
+
 
     @Override
     public String toString() {
@@ -70,9 +74,6 @@ public class Library<T extends Borrowable & Matchable >  {
     public void sortBy(Comparator<T> comparator) {
         library.sort(comparator);
     }
-
-    //TODO a switch to search by type
-    // expand findMatch to receive all possible Matchs
     public ArrayList<T> findMatch(String type, String name) {
 
         ArrayList<T> library = new ArrayList<>(this.library);
