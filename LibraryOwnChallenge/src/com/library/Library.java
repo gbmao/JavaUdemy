@@ -8,6 +8,26 @@ public class Library <T extends Borrowable>  {
 
     private List<T> library = new ArrayList<T>();
 
+    static class AuthorComparator implements Comparator<Book> {
+
+        private String sortType;
+
+        public AuthorComparator(String sortType) {
+            this.sortType = sortType;
+        }
+
+        @Override
+        public int compare(Book book, Book t1) {
+
+            return switch (sortType.toLowerCase()) {
+                case "author" -> book.author.compareTo(t1.author);
+                case "genre" -> book.genre.compareTo(t1.genre);
+                case "totalpages" -> book.totalPages - t1.totalPages;
+                default -> book.getTitle().compareTo(t1.getTitle());
+            };
+        }
+    }
+
     public Library(T item) {
         addElements(item);
     }
@@ -33,17 +53,13 @@ public class Library <T extends Borrowable>  {
     }
 
 
+    //TODO implement search by title, author name, genre (maybe number of pages?)
+    //TODO method for removing items from library
+    //TODO and listAvailableItems to show everything available
 
 
 }
 
-class AuthorComparator implements Comparator<Book> {
 
-
-    @Override
-    public int compare(Book book, Book t1) {
-        return book.author.compareTo(t1.author);
-    }
-}
 
 

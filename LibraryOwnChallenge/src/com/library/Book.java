@@ -3,8 +3,8 @@ package com.library;
 
 public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
     protected String author;
-    private int totalPages;
-    private Genre genre;
+    protected int totalPages;
+    protected Genre genre;
 
 
 
@@ -31,7 +31,7 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
     //TODO better output
     @Override
     public String toString() {
-        return getTitle() + " Author: " + author + isBorrowed();
+        return getTitle() + "\tAuthor: " + author + "\tgenre: " + genre+ "\tTotalPages: " +totalPages;
     }
 
 
