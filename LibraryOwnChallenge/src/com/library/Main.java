@@ -1,7 +1,5 @@
 package com.library;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class Main {
@@ -31,16 +29,16 @@ public class Main {
 //        System.out.println(library);
 //        library.sortBy(Comparator.naturalOrder());
         System.out.println(library);
-        Comparator<Book> aq = new Library.AuthorComparator("author");
+        Comparator<Book> aq = new Library.BookComparator("author");
         library.sortBy(aq);
         System.out.println(library);
-        aq = new Library.AuthorComparator("genre");
+        aq = new Library.BookComparator("genre");
         library.sortBy(aq);
         System.out.println(library);
-        aq = new Library.AuthorComparator("totalPages");
+        aq = new Library.BookComparator("totalPages");
         library.sortBy(aq);
         System.out.println(library);
-        aq = new Library.AuthorComparator("");
+        aq = new Library.BookComparator("");
         library.sortBy(aq);
         System.out.println(library);
 

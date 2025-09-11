@@ -8,11 +8,11 @@ public class Library <T extends Borrowable>  {
 
     private List<T> library = new ArrayList<T>();
 
-    static class AuthorComparator implements Comparator<Book> {
+    static class BookComparator implements Comparator<Book> {
 
         private String sortType;
 
-        public AuthorComparator(String sortType) {
+        public BookComparator(String sortType) {
             this.sortType = sortType;
         }
 
