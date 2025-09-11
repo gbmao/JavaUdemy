@@ -28,10 +28,8 @@ public class Util<T extends Borrowable & Matchable> {
         return searchList;
     }
 
-    public ArrayList<T> addToSearch(String type, String name, Util<T> search) {
-
-
-        return searchList;
+    public void clearSearch(){
+        searchList.clear();
     }
 
 
