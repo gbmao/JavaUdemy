@@ -28,8 +28,18 @@ public class Util<T extends Borrowable & Matchable> {
         return searchList;
     }
 
-    public void clearSearch(){
+    public ArrayList<T> clearSearch(){
         searchList.clear();
+        return searchList;
+    }
+
+    public ArrayList<T> isAvailable(){
+        for (T t : searchList) {
+            if (t.isBorrowed()){
+                searchList.remove(t);
+            }
+        }
+        return searchList;
     }
 
 
