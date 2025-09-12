@@ -21,6 +21,8 @@ public class Library<T extends Borrowable & Matchable >  {
         @Override
         public int compare(Book book, Book t1) {
 
+            //TODO change to an int return
+
             return switch (sortType.toLowerCase()) {
                 case "author" -> book.author.compareTo(t1.author);
                 case "genre" ->
@@ -28,7 +30,13 @@ public class Library<T extends Borrowable & Matchable >  {
                 case "totalpages" -> book.totalPages - t1.totalPages;
                 default -> book.getTitle().compareTo(t1.getTitle());
             };
+
+
         }
+        //TODO create a recursive method to be called with 2 parameters
+        // first parameter enum genre as array and the choice from compareTo
+        // it shall call itself recursively  ?
+
     }
 
     public Library(){}
@@ -46,6 +54,7 @@ public class Library<T extends Borrowable & Matchable >  {
 
     public final void addElements(ArrayList<T> elements) {
         library.addAll(elements);
+
     }
 
 

@@ -42,8 +42,8 @@ public class Main {
 //        System.out.println(library);
 //        library.sortBy(Comparator.naturalOrder());
 //        System.out.println(library);
-//        Comparator<Book> aq = new Library.BookComparator("author");
-//        library.sortBy(aq);
+        Comparator<Book> aq = new Library.BookComparator("author");
+        library.sortBy(aq);
 //        System.out.println(library);
 //        aq = new Library.BookComparator("genre");
 //        library.sortBy(aq);
