@@ -19,7 +19,7 @@ public class Main {
 //        book.borrow();
 //        book.borrow();
 
-        Library<Book> library = new Library<>(book);
+        Library<ItemLibrary> library = new Library<>();
         library.addElements(b1);
         library.addElements(b2);
         library.addElements(b3);
@@ -42,7 +42,7 @@ public class Main {
 //        System.out.println(library);
 //        library.sortBy(Comparator.naturalOrder());
 //        System.out.println(library);
-        Comparator<Book> aq = new Library.BookComparator("author");
+        Comparator<ItemLibrary> aq = new Library.BookComparator("author");
         library.sortBy(aq);
 //        System.out.println(library);
 //        aq = new Library.BookComparator("genre");

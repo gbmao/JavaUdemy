@@ -10,7 +10,7 @@ public class Library<T extends Borrowable & Matchable >  {
 
     private List<T> library = new ArrayList<T>();
 
-    static class BookComparator implements Comparator<Book> {
+    static class BookComparator implements Comparator<ItemLibrary> {
 
         private String sortType;
 
@@ -19,15 +19,15 @@ public class Library<T extends Borrowable & Matchable >  {
         }
 
         @Override
-        public int compare(Book book, Book t1) {
+        public int compare(ItemLibrary book, ItemLibrary t1) {
 
             //TODO change to an int return
 
             return switch (sortType.toLowerCase()) {
-                case "author" -> book.author.compareTo(t1.author);
+                case "author" -> book.byAuthor().compareTo(t1.byAuthor());
                 case "genre" ->
-                        book.genre.name().compareTo(t1.genre.name()); // without .name() genre uses the order it was created
-                case "totalpages" -> book.totalPages - t1.totalPages;
+                        book.byGenre().name().compareTo(t1.byGenre().name()); // without .name() genre uses the order it was created
+                case "totalpages" -> book.byPages() - t1.byPages();
                 default -> book.getTitle().compareTo(t1.getTitle());
             };
 

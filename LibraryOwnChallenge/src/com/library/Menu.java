@@ -6,10 +6,10 @@ import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class Menu {
-    public Library<Book> library;
+    public Library<ItemLibrary> library;
     Util searchProgram;
 
-    public Menu(Library<Book> library) {
+    public Menu(Library<ItemLibrary> library) {
         this.library = library;
         searchProgram = new Util<>(library);
     }
