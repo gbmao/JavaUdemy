@@ -21,7 +21,7 @@ public class Library<T extends Borrowable & Matchable >  {
         @Override
         public int compare(ItemLibrary book, ItemLibrary t1) {
 
-            //TODO change to an int return
+
 
             return switch (sortType.toLowerCase()) {
                 case "author" -> book.byAuthor().compareTo(t1.byAuthor());

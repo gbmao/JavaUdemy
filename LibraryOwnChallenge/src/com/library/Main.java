@@ -36,42 +36,10 @@ public class Main {
         library.addElements(new Book("Unknown Secrets", "Anonymous", 150, "didactic"));
         library.addElements(new Book("Anonymous Tales", "Anonymous", 120, "poetry"));
 
-//        Collections.sort(library);
-//        Comparator<Book> teste = new BookAuthorComparator();
 
-//        System.out.println(library);
-//        library.sortBy(Comparator.naturalOrder());
-//        System.out.println(library);
         Comparator<ItemLibrary> aq = new Library.BookComparator("author");
         library.sortBy(aq);
-//        System.out.println(library);
-//        aq = new Library.BookComparator("genre");
-//        library.sortBy(aq);
-//        System.out.println(library);
-//        aq = new Library.BookComparator("totalPages");
-//        library.sortBy(aq);
-//        System.out.println(library);
 
-//        b1.borrow();
-//        b2.borrow();
-//        b1.borrow();
-//        aq = new Library.BookComparator("");
-//        library.sortBy(aq);
-//        System.out.println(library);
-//
-//        System.out.println(library.isAvailable());
-
-
-
-//        System.out.println("aq");
-//        System.out.println(search.addToSearch("genre", "romance" ));
-//        System.out.println(search);
-////
-//        Book[] a = {b1,b2,b3};
-//
-//        System.out.println(Arrays.deepToString(a));
-//        Arrays.sort(a);
-//        System.out.println(Arrays.deepToString(a));
 
 
 //        Arrays.sort(library, teste);
