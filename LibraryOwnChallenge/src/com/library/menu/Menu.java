@@ -90,13 +90,24 @@ public class Menu {
 
             switch (scanner.nextInt()) {
                 case 1 -> addItem();
-                case 2 -> System.out.println("WIP");
+                case 2 -> removeItem();
                 case 3 -> menuList();
                 case 4 -> flag = false;
                 default -> System.out.println("WIP");
             }
         }
     }
+
+    private void removeItem(){
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o nome do livro para REMOVER: ");
+        String title = scanner.nextLine();
+        library.removeElement(title);
+    }
+
 
     private void addItem() {
         for (int i = 0; i < 50; i++) {
