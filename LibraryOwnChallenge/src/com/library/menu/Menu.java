@@ -1,8 +1,9 @@
-package com.library;
+package com.library.menu;
 
+import com.library.Book;
+import com.library.Library;
 import com.library.util.Util;
 
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class Menu {
