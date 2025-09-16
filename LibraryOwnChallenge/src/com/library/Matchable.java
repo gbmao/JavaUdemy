@@ -9,6 +9,8 @@ public interface Matchable {
 
     Genre byGenre();
 
+    int byID();
+
      enum Genre {
         ROMANCE, DIDACTIC, POETRY, DEFAULT;
 

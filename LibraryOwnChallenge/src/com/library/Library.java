@@ -1,10 +1,7 @@
 package com.library;
 
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Library<T extends Borrowable & Matchable >  {
 
@@ -28,7 +25,7 @@ public class Library<T extends Borrowable & Matchable >  {
                 case "genre" ->
                         book.byGenre().name().compareTo(t1.byGenre().name()); // without .name() genre uses the order it was created
                 case "totalpages" -> book.byPages() - t1.byPages();
-                default -> book.getTitle().compareTo(t1.getTitle());
+                default -> book.byName().compareTo(t1.byName());
             };
 
 
@@ -45,11 +42,38 @@ public class Library<T extends Borrowable & Matchable >  {
         addElements(item);
     }
 
+    public void removeElement(String title){
+        List<T> toRemove = new ArrayList<>();
+        for (T t : library) {
+            if(t.byName().equalsIgnoreCase(title)){
+                System.out.println(t + " foi removido");
+
+                toRemove.add(t);
+            }
+        }
+        library.remove(toRemove.get(0));
+
+    }
 
 
     @SafeVarargs
     public final void addElements(T... elements) {
-        library.addAll(List.of(elements));
+
+        for (T newItem : elements) {
+            boolean exist = false;
+            for (T t : library) {
+                if(newItem.byName().equalsIgnoreCase(t.byName())){
+                    exist = true;
+                }
+            }
+            if(exist) {
+                System.out.println(newItem.byName() + " ja esta na lista");
+            }
+            if(!exist) {
+                library.add(newItem);
+            }
+        }
+
     }
 
     public final void addElements(ArrayList<T> elements) {
@@ -62,13 +86,14 @@ public class Library<T extends Borrowable & Matchable >  {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("%-35s %-25s %-12s %-6s\n", "Title", "Author", "Genre", "Pages"));
+        sb.append(String.format("%-40s %-35s %-25s %-12s %-6s\n","ID", "Title", "Author", "Genre", "Pages"));
         sb.append("-".repeat(80)); // linha separadora
         sb.append("\n");
 
         for (T t : library) {
             if (t instanceof Book book) { // cast seguro
-                sb.append(String.format("%-35s %-25s %-12s %-6d\n",
+                sb.append(String.format("%-40s %-35s %-25s %-12s %-6d\n",
+                        book.getItemID(),
                         book.getTitle(),
                         book.getAuthor(),
                         book.getGenre().name(),
@@ -125,11 +150,7 @@ public class Library<T extends Borrowable & Matchable >  {
         return searchList;
 
     }
-    //TODO a search list
-    // should receive one or more parameters
-    // and list all items with those parameters
 
-    //TODO method for removing items from library
 
     /**
      *

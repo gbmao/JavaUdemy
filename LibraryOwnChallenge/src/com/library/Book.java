@@ -26,6 +26,11 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
         return genre;
     }
 
+    @Override
+    public int byID() {
+        return itemID;
+    }
+
 
     public Book(String title, String author, int totalPages, String genre) {
         super(title);
@@ -38,7 +43,7 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
     //TODO better output
     @Override
     public String toString() {
-        return getTitle() + "\tAuthor: " + author + "\tgenre: " + genre+ "\tTotalPages: " +totalPages + "\t borrow: " + this.isBorrowed();
+        return getTitle()  ;
     }
 
     public String getAuthor() {

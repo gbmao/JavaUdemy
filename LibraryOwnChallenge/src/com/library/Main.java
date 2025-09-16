@@ -36,13 +36,15 @@ public class Main {
         library.addElements(new Book("Unknown Secrets", "Anonymous", 150, "didactic"));
         library.addElements(new Book("Anonymous Tales", "Anonymous", 120, "poetry"));
 
-//        System.out.println(library);
-//        Comparator<ItemLibrary> aq = new Library.BookComparator("author");
-//        library.sortBy(aq);
+        System.out.println(library);
+        Comparator<ItemLibrary> aq = new Library.BookComparator("author");
+        library.sortBy(aq);
 
 
 
 //        Arrays.sort(library, teste);
+        System.out.println(library);
+        library.removeElement("Anonymous tales");
         System.out.println(library);
 //        Menu menu = new Menu(library);
 //        menu.menuStart();
