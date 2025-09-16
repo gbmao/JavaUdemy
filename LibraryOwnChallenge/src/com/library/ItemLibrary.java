@@ -1,7 +1,7 @@
 package com.library;
 
 
-abstract class ItemLibrary implements Borrowable , Matchable{
+public abstract class ItemLibrary implements Borrowable , Matchable{
 
     private String title;
     private boolean borrowed;

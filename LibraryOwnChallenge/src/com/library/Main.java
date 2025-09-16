@@ -2,6 +2,8 @@ package com.library;
 
 import com.library.menu.Menu;
 
+import java.util.Comparator;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -34,16 +36,16 @@ public class Main {
         library.addElements(new Book("Unknown Secrets", "Anonymous", 150, "didactic"));
         library.addElements(new Book("Anonymous Tales", "Anonymous", 120, "poetry"));
 
-
-        Comparator<ItemLibrary> aq = new Library.BookComparator("author");
-        library.sortBy(aq);
+//        System.out.println(library);
+//        Comparator<ItemLibrary> aq = new Library.BookComparator("author");
+//        library.sortBy(aq);
 
 
 
 //        Arrays.sort(library, teste);
         System.out.println(library);
-        Menu menu = new Menu(library);
-        menu.menuStart();
+//        Menu menu = new Menu(library);
+//        menu.menuStart();
 //        search.addToSearch("Genre", "romance");
 //        System.out.println(search);
 //        search.addToSearch("author", "Homer");
