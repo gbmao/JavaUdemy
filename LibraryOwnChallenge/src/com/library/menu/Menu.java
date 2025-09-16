@@ -27,6 +27,61 @@ public class Menu {
             System.out.println("Biblioteca");
             System.out.println("-".repeat(30));
 
+            System.out.println("1. Sou estudante");
+            System.out.println("2. Sou professor");
+            System.out.println("3- Sair");
+            System.out.print("Escolha: ");
+
+            switch (scanner.nextInt()) {
+                case 1 -> menuStudent();
+                case 2 -> menuTeacher();
+                case 3 -> flag = false;
+                default -> System.out.println("WIP");
+            }
+        }
+    }
+
+    private void menuStudent() {
+
+        //Notting to implement YET!!
+        menuList();
+
+//        boolean flag = true;
+//        while (flag) {
+//            Scanner scanner = new Scanner(System.in);
+//            for (int i = 0; i < 50; i++) {
+//                System.out.println();
+//            }
+//
+//            System.out.println("Biblioteca");
+//            System.out.println("-".repeat(30));
+//
+//
+//            System.out.println("1- Lista de items");
+//            System.out.println("4- Sair");
+//            System.out.print("Escolha: ");
+//
+//            switch (scanner.nextInt()) {
+//                case 1 -> System.out.println("WIP");
+//                case 2 -> System.out.println("WIP");
+//                case 3 -> menuList();
+//                case 4 -> flag = false;
+//                default -> System.out.println("WIP");
+//            }
+//        }
+    }
+
+    private void menuTeacher() {
+        boolean flag = true;
+        while (flag) {
+            Scanner scanner = new Scanner(System.in);
+            for (int i = 0; i < 50; i++) {
+                System.out.println();
+            }
+
+            System.out.println("Biblioteca");
+            System.out.println("-".repeat(30));
+
             System.out.println("1. Adicionar item-wip");
             System.out.println("2. Remover item -wip");
             System.out.println("3- Lista de items");
@@ -34,13 +89,48 @@ public class Menu {
             System.out.print("Escolha: ");
 
             switch (scanner.nextInt()) {
-                case 1 -> System.out.println("WIP");
-                case 2 -> System.out.println("WIP");
+                case 1 -> addItem();
+                case 2 -> removeItem();
                 case 3 -> menuList();
                 case 4 -> flag = false;
                 default -> System.out.println("WIP");
             }
         }
+    }
+
+    private void removeItem(){
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o nome do livro para REMOVER: ");
+        String title = scanner.nextLine();
+        library.removeElement(title);
+    }
+
+
+    private void addItem() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Adicionar Item");
+
+        System.out.print("Digite o nome do Livro: ");
+        String title = scanner.nextLine();
+
+        System.out.print("Digite o nome do autor: ");
+        String author = scanner.nextLine();
+
+        System.out.print("Digite a quantidade de paginas: ");
+        int totalPages = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Digite o genero:");
+        String genre = scanner.nextLine();
+
+        library.addElements(new Book(title, author, totalPages, genre));
+
     }
 
     private void menuList() {
