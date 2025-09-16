@@ -49,6 +49,8 @@ public class Library<T extends Borrowable & Matchable >  {
 
     @SafeVarargs
     public final void addElements(T... elements) {
+        //TODO check for duplicates
+        // list the items add
         library.addAll(List.of(elements));
     }
 

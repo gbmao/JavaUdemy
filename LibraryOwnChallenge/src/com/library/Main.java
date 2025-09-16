@@ -44,8 +44,8 @@ public class Main {
 
 //        Arrays.sort(library, teste);
         System.out.println(library);
-//        Menu menu = new Menu(library);
-//        menu.menuStart();
+        Menu menu = new Menu(library);
+        menu.menuStart();
 //        search.addToSearch("Genre", "romance");
 //        System.out.println(search);
 //        search.addToSearch("author", "Homer");
