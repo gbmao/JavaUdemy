@@ -7,7 +7,7 @@ public class Library<T extends Borrowable & Matchable >  {
 
     private List<T> library = new ArrayList<T>();
 
-    static class BookComparator implements Comparator<ItemLibrary> {
+    public static class BookComparator implements Comparator<ItemLibrary> {
 
         private String sortType;
 
@@ -86,13 +86,13 @@ public class Library<T extends Borrowable & Matchable >  {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("%-40s %-35s %-25s %-12s %-6s\n","ID", "Title", "Author", "Genre", "Pages"));
+        sb.append(String.format("%-5s %-35s %-25s %-12s %-6s\n","ID", "Title", "Author", "Genre", "Pages"));
         sb.append("-".repeat(80)); // linha separadora
         sb.append("\n");
 
         for (T t : library) {
             if (t instanceof Book book) { // cast seguro
-                sb.append(String.format("%-40s %-35s %-25s %-12s %-6d\n",
+                sb.append(String.format("%-5s %-35s %-25s %-12s %-6d\n",
                         book.getItemID(),
                         book.getTitle(),
                         book.getAuthor(),

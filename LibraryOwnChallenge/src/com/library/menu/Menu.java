@@ -82,8 +82,8 @@ public class Menu {
             System.out.println("Biblioteca");
             System.out.println("-".repeat(30));
 
-            System.out.println("1. Adicionar item-wip");
-            System.out.println("2. Remover item -wip");
+            System.out.println("1. Adicionar item");
+            System.out.println("2. Remover item ");
             System.out.println("3- Lista de items");
             System.out.println("4- Sair");
             System.out.print("Escolha: ");

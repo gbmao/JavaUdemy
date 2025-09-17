@@ -14,11 +14,6 @@ public class Main {
         Book b4 = new Book("Clean Code", "Robert C. Martin", 464, "didactic");
         Book b5 = new Book("Unknown Title", "Anonymous", 100, "fantasy");
 
-//        System.out.println(b5.compareTo(b4));
-//        System.out.println(b4);
-//        book.borrow();
-//        book.borrow();
-
         Library<ItemLibrary> library = new Library<>();
         library.addElements(b1);
         library.addElements(b2);
@@ -36,24 +31,10 @@ public class Main {
         library.addElements(new Book("Unknown Secrets", "Anonymous", 150, "didactic"));
         library.addElements(new Book("Anonymous Tales", "Anonymous", 120, "poetry"));
 
-        System.out.println(library);
-        Comparator<ItemLibrary> aq = new Library.BookComparator("author");
-        library.sortBy(aq);
 
+        Menu menu = new Menu(library);
+        menu.menuStart();
 
-
-//        Arrays.sort(library, teste);
-        System.out.println(library);
-        library.removeElement("Anonymous tales");
-        System.out.println(library);
-//        Menu menu = new Menu(library);
-//        menu.menuStart();
-//        search.addToSearch("Genre", "romance");
-//        System.out.println(search);
-//        search.addToSearch("author", "Homer");
-//        System.out.println(search);
-//        search.addToSearch("author", "Machado de Assis");
-//        System.out.println(search);
 
 
 

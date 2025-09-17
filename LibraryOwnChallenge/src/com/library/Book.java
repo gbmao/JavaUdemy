@@ -61,9 +61,9 @@ public class Book extends ItemLibrary implements Borrowable, Comparable<Book> {
     @Override
     public void borrow() {
         if (isBorrowed()) {
-            System.out.println("Item unavailable");
+            System.out.println("Item indisponivel");
         } else {
-            System.out.println("Borrowin...");
+            System.out.println("Alugando...");
             this.setBorrowed(true);
         }
     }
