@@ -30,9 +30,7 @@ public class Library<T extends Borrowable & Matchable >  {
 
 
         }
-        //TODO create a recursive method to be called with 2 parameters
-        // first parameter enum genre as array and the choice from compareTo
-        // it shall call itself recursively  ?
+
 
     }
 
