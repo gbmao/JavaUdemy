@@ -65,6 +65,8 @@ public class Main {
         } );
 
         System.out.println(nova);
+
+        names.forEach(s -> System.out.println(s));
 //
 //        UnaryOperator<String> removeDuplicate = (source) -> {
 //
