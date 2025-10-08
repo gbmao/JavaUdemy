@@ -58,11 +58,45 @@ public class Main {
         System.out.println("sublist index for tens = " + subListIndex);
         System.out.println("Contains = " + deck.containsAll(tens));
 
-        boolean disjoint = Collections.disjoint(deck,tens);
+        boolean disjoint = Collections.disjoint(deck, tens);
         System.out.println("disjoint = " + disjoint);
 
-        boolean disjoint2 = Collections.disjoint(kings,tens);
+        boolean disjoint2 = Collections.disjoint(kings, tens);
         System.out.println("disjoint = " + disjoint2);
 
+        deck.sort(sortingAlgorithm);
+        Card tenOfHearts = Card.getNumericCard(Card.Suit.HEART, 10);
+        int foundIndex = Collections.binarySearch(deck, tenOfHearts, sortingAlgorithm);
+        System.out.println("foundIndex = " + foundIndex);
+        System.out.println("foundIndex = " + deck.indexOf(tenOfHearts));
+        System.out.println(deck.get(foundIndex));
+
+        Card tenOfClubs = Card.getNumericCard(Card.Suit.CLUB, 10);
+        Collections.replaceAll(deck, tenOfClubs, tenOfHearts);
+        Card.printDeck(deck.subList(32, 36), "Tens row", 1);
+
+        Collections.replaceAll(deck, tenOfHearts, tenOfClubs);
+        Card.printDeck(deck.subList(32, 36), "Tens row", 1);
+
+        if (Collections.replaceAll(deck, tenOfHearts, tenOfClubs)) {
+            System.out.println("Tens of hearts replaced with tens of club");
+        } else {
+            System.out.println("No tens of hearts found in the list");
+        }
+
+        System.out.println("Ten of clubs cards = " +
+                Collections.frequency(deck, tenOfClubs));
+
+        System.out.println("Best Card = " + Collections.max(deck, sortingAlgorithm));
+        System.out.println("Worst Card = " + Collections.min(deck, sortingAlgorithm));
+
+        var sortBySuit = Comparator.comparing(Card::suit)
+                .thenComparing(Card::rank);
+        Card.printDeck(deck, "Sorted by Suit, Rank", 4);
+
+        List<Card> copied = new ArrayList<>(deck.subList(0, 13));
+        Collections.rotate(copied, 2);
+        System.out.println("UnRotated: " + deck.subList(0, 13));
+        System.out.println("Rotated " + 2 + ": " + copied);
     }
 }
