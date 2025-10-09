@@ -16,12 +16,51 @@ public class Main {
         LinkedList<Card> deck1 = new LinkedList<>(deck);
         List<Card> dealerHand = new ArrayList<>();
         List<Card> playerHand = new ArrayList<>();
-        dealHands(dealerHand, deck1, playerHand);
+        List<Card> garbage = new ArrayList<>();
 
         boolean flag = true;
-        boolean dealerTurn = false;
 
         while (flag) {
+
+            while (true) {
+                try {
+                    play(dealerHand, playerHand, deck1);
+                    break;
+                } catch (NoSuchElementException e) {
+                    System.out.println("Acabaram as cartas do deck, embaralhando novamente...");
+                    deck1.addAll(garbage);
+                    garbage.clear();
+                    Collections.shuffle(deck1);
+                    scanner.nextLine();
+                }
+            }
+
+
+            System.out.println("-".repeat(30));
+            System.out.println();
+            System.out.print("Jogar novamente? (S/N)");
+            String response = scanner.nextLine();
+            if (response.equalsIgnoreCase("n")) {
+                flag = false;
+            } else {
+                garbage.addAll(dealerHand);
+                garbage.addAll(playerHand);
+                Card.printDeck(garbage, "Colocando as cartas no lixo", 1);
+                dealerHand.clear();
+                playerHand.clear();
+            }
+        }
+
+
+    }
+
+    public static void play(List<Card> dealerHand, List<Card> playerHand, LinkedList<Card> deck1) {
+        boolean flag = true;
+        boolean dealerTurn = false;
+        dealHands(dealerHand, deck1, playerHand);
+
+        while (flag) {
+            scanner.nextLine();
             clearTerminal();
             showHands(playerHand, dealerHand, dealerTurn);
 
@@ -35,6 +74,7 @@ public class Main {
             } else {
 
                 dealerPlay(dealerHand, deck1, totalPoint(playerHand));
+
                 if (totalPoint(dealerHand) > 21) {
                     System.out.println("Dealer Explodiu");
                     flag = false;
@@ -43,18 +83,15 @@ public class Main {
                     System.out.println("Dealer venceu!");
                     flag = false;
                 }
-                if (totalPoint(dealerHand ) == totalPoint(playerHand)) {
+                if (totalPoint(dealerHand) == totalPoint(playerHand)) {
                     System.out.println("Empate");
                     flag = false;
                 }
             }
 
 
-
         }
         showHands(playerHand, dealerHand, dealerTurn);
-
-
     }
 
     public static void printDealerHand(List<Card> dealerHand) {
@@ -123,7 +160,7 @@ public class Main {
         if (totalPoint(playerHand) < 15) {
             playerHand.add(deck.pop());
         }
-            scanner.nextLine();
+       // scanner.nextLine();
 
         return totalPoint(playerHand) >= 15;
     }
@@ -132,7 +169,7 @@ public class Main {
         if (totalPoint(dealerHand) < playerPoint) {
             dealerHand.add(deck.pop());
         }
-            scanner.nextLine();
+        scanner.nextLine();
         return totalPoint(dealerHand);
     }
 
