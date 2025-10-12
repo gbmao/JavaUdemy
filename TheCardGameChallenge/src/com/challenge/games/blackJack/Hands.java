@@ -59,6 +59,10 @@ public class Hands {
         }
     }
 
+    public void drawCard(List<Card> hand) {
+        hand.add(deck.pop());
+    }
+
     public void clearHands(){
         garbage.addAll(dealerHand);
         dealerHand.clear();
@@ -75,5 +79,13 @@ public class Hands {
             System.out.println(p);
         }
         return "";
+    }
+
+    public List<Card> getDealerHand() {
+        return dealerHand;
+    }
+
+    public List<Player> getPlayer() {
+        return player;
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class Player {
     private String name;
     private List<Card> playerHand = new ArrayList<>();
-    private static int playerNumber = -1;
+    private static int playerNumber = -1; // TODO change it to be more "universal" (
 
     public Player() { // cria player usando enum como nome
         playerNumber++;
@@ -24,8 +24,8 @@ public class Player {
 
     @Override
     public String toString() {
-        Card.printDeck(playerHand, name, 1);
-        return "";
+//        Card.printDeck(playerHand, name, 1);
+        return name;
     }
 
     public void addCard(Card card) {
