@@ -3,6 +3,7 @@ package dev.lpa.games.poker;
 import dev.lpa.Card;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class PokerGame {
 
@@ -27,8 +28,21 @@ public class PokerGame {
 
         deal();
         System.out.println("----------------------");
-        pokerHands.forEach(System.out::println);
+        Consumer<PokerHand> checkhand = PokerHand::evalHand;
+        pokerHands.forEach(checkhand.andThen(System.out::println));
+//        pokerHands.forEach(System.out::println);
+
+        int cardsDealt = playerCount * cardsInHand;
+        int cardsRemaining = deck.size() - cardsDealt;
+
+//        remainingCards = new ArrayList<>(cardsRemaining);
+        remainingCards = new ArrayList<>(Collections.nCopies(cardsRemaining, null));
+        remainingCards.replaceAll(c -> deck.get(cardsDealt + remainingCards.indexOf(c)));
+        Card.printDeck(remainingCards,"Remaining Cards", 2);
+
     }
+
+
 
     private void deal() {
         Card[][] hands = new Card[playerCount][cardsInHand];
