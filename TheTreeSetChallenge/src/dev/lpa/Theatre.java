@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class Theatre {
-    private String name;
-    private int seatsInRow;
-    private TreeSet<Seat> seats = new TreeSet<>(Comparator.comparing(Seat::getRow).thenComparing(Seat::getNumber));
-    private int row;
+    private final String name;
+    private final int seatsInRow;
+    private final TreeSet<Seat> seats = new TreeSet<>(Comparator.comparing(Seat::getRow).thenComparing(Seat::getNumber));
+    private final int row;
 
 
     public Theatre(String name, int numberOfRow, int numberOfSeats) {
@@ -36,6 +36,7 @@ public class Theatre {
 
     public void printSeatMap(){
 
+        System.out.println("---- " + name + " ----");
         for (int i = 0; i <row ; i++) {
             String letter = "" + ((char) (i + 65));
         seats.stream().filter(seat -> seat.row.startsWith(letter)).forEach(System.out::print);
@@ -50,9 +51,9 @@ public class Theatre {
     }
 
 
-    public class Seat {
-        private String row;
-        private int number;
+    public static class Seat {
+        private final String row;
+        private final int number;
         private boolean reserved;
 
         public Seat(String row, int number, boolean reserved) {
