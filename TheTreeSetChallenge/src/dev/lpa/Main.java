@@ -7,7 +7,9 @@ public class Main {
 
         teatro.printSeatMap();
 
-        teatro.reserveSeat("B", 1);
+        teatro.reserveSeat2("B", 1);
+        teatro.reserveSeat2("B", 1);
+        teatro.reserveSeat2("C", 1);
         teatro.printSeatMap();
     }
 }

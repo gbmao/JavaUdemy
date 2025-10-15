@@ -22,7 +22,7 @@ public class Theatre {
 
     // seatsInRow = numberOfSeats/numberOfRow
 
-    private void createSeat(){
+    private void createSeat() {
         for (int i = 0; i < row; i++) {
 
             String letter = "" + ((char) (i + 65));
@@ -34,20 +34,37 @@ public class Theatre {
         }
     }
 
-    public void printSeatMap(){
+    public void printSeatMap() {
 
         System.out.println("---- " + name + " ----");
-        for (int i = 0; i <row ; i++) {
+        for (int i = 0; i < row; i++) {
             String letter = "" + ((char) (i + 65));
-        seats.stream().filter(seat -> seat.row.startsWith(letter)).forEach(System.out::print);
+            seats.stream().filter(seat -> seat.row.startsWith(letter)).forEach(System.out::print);
             System.out.println();
         }
 
     }
 
-    public void reserveSeat(String row, int number){
+    public void reserveSeat(String row, int number) {
         seats.stream().filter(seat -> seat.row.equalsIgnoreCase(row)).filter(seat ->
                 seat.number == number).forEach(seat -> seat.setReserved(true));
+    }
+
+    public void reserveSeat2(String row, int number) {
+        Seat requestedSeat = new Seat(row, number, false);
+        Seat requested = seats.floor(requestedSeat);
+
+            if (requested == null || requested.number != requestedSeat.number) {
+                System.out.print("--> No such seat: " + requestedSeat);
+                System.out.printf(": Seat must be between %s and %s%n",
+                        seats.first().number, seats.last().number);
+            } else {
+                if (!requested.isReserved()) {
+                    requested.setReserved(true);
+                } else {
+                    System.out.println("Seat already reserved");
+                }
+            }
     }
 
 
@@ -81,15 +98,15 @@ public class Theatre {
         @Override
         public String toString() {
             String num = "00" + number;
-            if(number >= 10) {
-                 num = "0" + number;
+            if (number >= 10) {
+                num = "0" + number;
             }
-            if(number >= 100) {
+            if (number >= 100) {
                 num = "" + number;
             }
-            if(isReserved()){
+            if (isReserved()) {
                 String reserved = "(R)";
-                return "%-8s".formatted(row + num +reserved);
+                return "%-8s".formatted(row + num + reserved);
             }
             return "%-8s".formatted(row + num);
         }
