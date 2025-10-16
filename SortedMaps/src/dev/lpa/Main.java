@@ -44,6 +44,56 @@ public class Main {
                     });
         }
         datedPurchases.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        int currentYear = LocalDate.now().getYear();
+
+        LocalDate firstDay = LocalDate.ofYearDay(currentYear, 1);
+        LocalDate week1 = firstDay.plusDays(7);
+        Map<LocalDate, List<Purchase>> week1Purchases = datedPurchases.headMap(week1);
+        Map<LocalDate, List<Purchase>> week2Purchases = datedPurchases.tailMap(week1);
+
+//        System.out.println("--------------------------");
+//        week1Purchases.forEach((key, value) -> System.out.println(key + ": " + value));
+//        System.out.println("--------------------------");
+//        week2Purchases.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        displayStats(1, week1Purchases);
+        displayStats(2, week2Purchases);
+
+        System.out.println("--------------------------------------");
+
+        LocalDate lastDate = datedPurchases.lastKey();
+        var previousEntry = datedPurchases.lastEntry();
+
+        while (previousEntry != null) {
+            List<Purchase> lastDaysData = previousEntry.getValue();
+            System.out.println(lastDate + " purchases : " + lastDaysData.size());
+
+            LocalDate prevDate = datedPurchases.lowerKey(lastDate);
+//            LocalDate prevDate = datedPurchases.floorKey(lastDate);
+            previousEntry = datedPurchases.lowerEntry(lastDate);
+//            previousEntry = datedPurchases.floorEntry(lastDate);
+            lastDate = prevDate;
+        }
+
+        System.out.println("----------------------------");
+        var reversed = datedPurchases.descendingMap();
+
+        LocalDate firstDate = reversed.firstKey();
+//        var nextEntry = reversed.firstEntry();
+        var nextEntry = reversed.pollFirstEntry();
+
+        while(nextEntry != null) {
+            List<Purchase> lastDaysData  = nextEntry.getValue();
+            System.out.println(firstDate + " purchases : " + lastDaysData.size());
+
+            LocalDate nextDate = reversed.higherKey(firstDate);
+//            nextEntry = reversed.higherEntry(firstDate);
+            nextEntry = reversed.pollFirstEntry( );
+            firstDate = nextDate;
+        }
+        System.out.println("--------------------");
+        datedPurchases.forEach((k,v) -> System.out.println(k + " : " + v));
     }
 
     private static void addPurchase(String name, Course course, double price) {
@@ -62,5 +112,21 @@ public class Main {
         Purchase purchase = new Purchase(course.courseId(),
                 existingStudent.getId(), price, year, day);
         purchases.put(key, purchase);
+    }
+
+    private static void displayStats(int period,
+                                     Map<LocalDate, List<Purchase>> periodData) {
+
+        System.out.println("------------------------");
+        Map<String, Integer> weeklyCounts = new TreeMap<>();
+        periodData.forEach((key, value) -> {
+            System.out.println(key + ": " + value);
+            for (Purchase p : value) {
+                weeklyCounts.merge(p.courseId(), 1, (prev, current) -> {
+                    return prev + current;
+                });
+            }
+        });
+        System.out.printf("Week %d Purchases = %s%n", period, weeklyCounts);
     }
 }
