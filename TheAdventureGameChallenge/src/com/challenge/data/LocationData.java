@@ -1,8 +1,6 @@
-package com.challenge;
+package com.challenge.data;
 
-import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class LocationData {
@@ -27,12 +25,19 @@ public class LocationData {
             //insert locations to into another array
             if(data.length > 2) {
                 String[] data2 = new String[data.length - 2];
-                System.arraycopy(data, 2, data2, 0, data.length - 2);
+//                System.arraycopy(data, 2, data2, 0, data.length - 2);
 
-            dataList.put(data[0], new Location(data[0], data[1], data2));
+                //using for loop to ensure trim()
+                for (int i = 2; i < data.length; i++) {
+                    data2[i - 2] = data[i].trim();
+                }
+
+
+                dataList.put(data[0].trim(), new Location(data[0].trim(), data[1].trim(), data2));
             }
 
         }
+
 
         return dataList;
     }
