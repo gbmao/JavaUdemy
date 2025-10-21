@@ -37,13 +37,32 @@ public class Store {
         cart1.removeItem(aisleInventory.get(Category.PRODUCE).get("Banana"), 2);
         System.out.println(cart1);
 
+        Cart cart2 = new Cart(Cart.CartType.VIRTUAL, 1);
+        carts.add(cart2);
+        cart2.addItem(inventory.get("C300"), 20);
+        cart2.addItem(inventory.get("A101"), 10);
+        System.out.println(cart2);
 
+        Cart cart3 = new Cart(Cart.CartType.VIRTUAL, 0);
+        carts.add(cart3);
+        cart3.addItem(inventory.get("C300"), 998);
+        System.out.println(cart3);
+        if(!checkOutCart(cart3)) {
+            System.out.println("Something wen wrong, could not check out");
+        }
 
     }
 
-    private boolean checkOutCart() {
+    private boolean checkOutCart(Cart cart) {
 
-        return false;
+        for(var cartItem : cart.getProducts().entrySet()) {
+            var item = inventory.get(cartItem.getKey());
+            int qty = cartItem.getValue();
+            if(!item.sellItem(qty)) return false;
+        }
+        cart.printSalesSlip(inventory);
+        carts.remove(cart);
+        return true;
     }
 
     private void abandonCarts() {

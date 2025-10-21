@@ -38,6 +38,7 @@ public class InventoryItem {
         qtyReserved -= qty;
     }
 
+    // TODO fix qtyReserved
     public boolean sellItem(int qty) {
         if (qtyTotal >= qty) {
             qtyTotal -= qty;
