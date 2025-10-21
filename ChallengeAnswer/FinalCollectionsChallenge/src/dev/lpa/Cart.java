@@ -68,7 +68,9 @@ public class Cart {
             int qty = cartItem.getValue();
             double itemizedPrice = (item.getPrice() * qty);
             total += itemizedPrice;
-            System.out.printf("\t%s %-10s (%d)@ $%.2f = $%.2f%n");
+            System.out.printf("\t%s %-10s (%d)@ $%.2f = $%.2f%n",
+                    cartItem.getKey(), item.getProduct().name(), qty,
+                    item.getPrice(), itemizedPrice);
 
         }
         System.out.printf("Total sale:  $%.2f%n", total);
