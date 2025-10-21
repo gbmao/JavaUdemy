@@ -1,8 +1,6 @@
 package dev.lpa;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,13 +10,13 @@ public class Main {
     public static String inputSentence() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a sentence: ");
-        String response = scanner.nextLine();
-        return response;
+        return scanner.nextLine();
     }
 
     public static Map<String, Integer> createMap(String sentence) {
         String[] words = sentence.split(" ");
-        Map<String, Integer> wordsMapped = new HashMap<>();
+        NavigableMap<String, Integer> wordsMapped = new TreeMap<>();
+//        Map<String, Integer> wordsMapped = new HashMap<>();
         for (String s : words) {
             if (!wordsMapped.containsKey(s)) {
                 wordsMapped.put(s, 1);
@@ -32,6 +30,7 @@ public class Main {
 
     public static void printMap(Map<String, Integer> words) {
         System.out.println("Word count:");
+
         words.forEach((k,v) -> System.out.println(k + " -> " + v));
     }
 
