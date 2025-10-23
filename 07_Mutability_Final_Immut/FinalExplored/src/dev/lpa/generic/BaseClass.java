@@ -16,7 +16,7 @@ public class BaseClass {
         System.out.println("[BaseClass.MandatoryMethod]: NON-NEGOTIABLE!");
     }
 
-    public static void recommendedStatic(){
+    public  static void recommendedStatic(){
 
         System.out.println("[BaseClass.recommendedStatic]: Best Way to Do it");
         optionalStatic();

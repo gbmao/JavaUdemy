@@ -18,5 +18,15 @@ public class ChildClass extends BaseClass {
 //        optionalMethod();
 //    }
 
+    private void mandatoryMethod() {
+        System.out.println("[Child:mandatoryMethod]: My own important stuff");
+    }
+
+    public static void recommendedStatic(){
+
+        System.out.println("[BaseClass.recommendedStatic]: Best Way to Do it");
+        optionalStatic();
+//        mandatoryStatic();
+    }
 
 }
