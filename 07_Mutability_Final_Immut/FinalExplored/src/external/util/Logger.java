@@ -1,0 +1,15 @@
+package external.util;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+public class Logger {
+    public static void logToConsole(CharSequence message) {
+
+        LocalDateTime dt = LocalDateTime.now();
+        System.out.printf("%1$tD : %2$s%n", dt, message);
+        if(message instanceof  StringBuilder sb) {
+            sb.setLength(0);
+        }
+    }
+}
