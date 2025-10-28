@@ -1,4 +1,4 @@
-package com.com.bank;
+package com.lpa.bank;
 
 public class BankAccount {
 

@@ -1,7 +1,7 @@
 package com.gab;
 
-import com.com.bank.BankAccount;
-import com.com.bank.BankCustomer;
+import com.lpa.bank.BankAccount;
+import com.lpa.bank.BankCustomer;
 
 import java.util.List;
 

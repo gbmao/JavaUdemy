@@ -1,27 +1,43 @@
 package dev.lpa;
 
-import java.util.ArrayList;
+import dev.lpa.bank.Bank;
+import dev.lpa.bank.BankCustomer;
+
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        List<BankAccount> list = new ArrayList<>();
-        list.add(new BankAccount("Online", 500.00));
+//        dev.lpa.bank.BankCustomer joe = new BankCustomer("Joe", 500.00,
+//                10000.00);
+//        System.out.println(joe);
+//
+//        List<BankAccount> accounts = joe.getAccounts();
+//        accounts.clear();
+//        System.out.println(joe);
 
-        BankCustomer c1 = new BankCustomer("Ann", "1", list);
+        Bank itau = new Bank();
+        itau.addCustomer("Joe", 500, 1000);
+        itau.addCustomer("Jorge", 500, 1000);
+        itau.printClient();
+
+        System.out.println(itau.getCustomers("10000000"));
+        System.out.println(itau.getCustomers("10000001"));
+
+        System.out.println("-------------------");
+
+        itau.doTransaction("10000000", itau.getAccountType("CHECKING"), -500);
+        itau.doTransaction("10000000", itau.getAccountType("CHECKING"), -500);
 
 
+        itau.printTransactions("10000000", itau.getAccountType("CHECKING"));
 
-        System.out.println(c1);
+        System.out.println("---------------");
+        System.out.println(itau.getCustomers("10000000"));
 
-        String name = c1.getName();
-
-
-
-        System.out.println(c1);
-
+        System.out.println("------------------------");
     }
 
 

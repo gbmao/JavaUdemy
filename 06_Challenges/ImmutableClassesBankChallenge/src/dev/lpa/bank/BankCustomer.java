@@ -1,4 +1,4 @@
-package com.com.bank;
+package dev.lpa.bank;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,17 @@ public class BankCustomer {
     private final int customerId;
     private final List<BankAccount> accounts = new ArrayList<>();
 
-    public BankCustomer(String name, double checkingAmount, double savingsAmount) {
+    //return customerId as String
+    public String getCustomerId() {
+        return String.valueOf(customerId);
+    }
+
+
+
+
+
+
+    protected BankCustomer(String name, double checkingAmount, double savingsAmount) {
         this.name = name;
         this.customerId = lastCustomerId++;
         accounts.add(new BankAccount(BankAccount.AccountType.CHECKING, checkingAmount));
@@ -23,8 +33,25 @@ public class BankCustomer {
         return name;
     }
 
-    public List<BankAccount> getAccounts() {
+    // return defensive copy of accounts
+    protected List<BankAccount> getAccounts() {
         return new ArrayList<>(accounts);
+    }
+
+    //return just 1 account
+    protected BankAccount getAccount(BankAccount.AccountType type) {
+
+        for (BankAccount a : accounts) {
+            if (a.getAccountType() == type) {
+                return a;
+            }
+        }
+        return null; // prone to error
+    }
+
+    //print transaction from account
+    protected void printTransactions(BankAccount.AccountType type){
+        getAccount(type).printTransactions();
     }
 
     @Override
