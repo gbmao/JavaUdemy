@@ -3,6 +3,7 @@ package dev.lpa.bank;
 import dev.dto.Transaction;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
  class BankAccount {
@@ -13,7 +14,7 @@ import java.util.Map;
 
     private double balance;
 
-    private Map<Long, Transaction> transactions;
+    private final Map<Long, Transaction> transactions;
 
 
     //getter/access method for the transaction data
@@ -38,7 +39,7 @@ import java.util.Map;
     BankAccount(AccountType accountType, double balance) { //VIP
         this.accountType = accountType;
         this.balance = balance;
-        this.transactions = new HashMap<>();
+        this.transactions = new LinkedHashMap<>(); // LinkedHashMap para manter a ordem de inserção
     }
 
 
