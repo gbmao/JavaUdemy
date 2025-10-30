@@ -1,11 +1,13 @@
 package dev.lpa.game;
 
+import dev.lpa.pirate.PirateGame;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Game<T extends Player> {
+public  abstract class Game<T extends Player> {
 
     private final String gameName;
 
