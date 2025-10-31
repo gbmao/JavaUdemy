@@ -10,10 +10,10 @@ import java.util.Map;
 
 public class PirateGame extends Game<Pirate> {
 
-    private static final List<List<String>> levelMap;
+    private static final List<List<Town>> levelMap;
 
     //----------------------------------------------------------
-    static{
+    static {
         levelMap = new ArrayList<>();
         System.out.println("Loading Data...");
         loadData();
@@ -41,11 +41,20 @@ public class PirateGame extends Game<Pirate> {
         List<Weapon> weapons = Weapon.getWeaponsByLevel(pirate.value("level"));
 
         Map<Character, GameAction> map = new LinkedHashMap<>();
-        for(Weapon weapon : weapons) {
-            char init = weapon.name().charAt(0);
-            map.put(init, new GameAction(init,"use " + weapon,
-                    this::useWeapon));
+        if (pirate.hasOpponents()) {
+            for (Weapon weapon : weapons) {
+                char init = weapon.name().charAt(0);
+                map.put(init, new GameAction(init, "use " + weapon,
+                        this::useWeapon));
+            }
         }
+        map.put('F', new GameAction('F', "Find Loot", this::findLoot));
+        if (pirate.hasExperience()) {
+            map.put('X', new GameAction('X', "Experience Town Feature",
+                    this::experienceFeature));
+
+        }
+
         map.putAll(getStandardActions());
         return map;
     }
@@ -53,21 +62,22 @@ public class PirateGame extends Game<Pirate> {
     private static void loadData() {
 
         // level 1 Towns
-        levelMap.add(new ArrayList<>(List.of(
-                "Bridgetown, Barbados",
-                "Fitts Village, Barbados",
-                "Holetown, Barbados"
+        levelMap.add(new ArrayList<Town>(List.of(
+                new Town("Bridgetown", "Barbados", 0),
+                new Town("Fitts Village", "Barbados", 0),
+                new Town("Holetown", "Barbados", 0)
+
         )));
 
         // level 2 Towns
-        levelMap.add(new ArrayList<>(List.of(
-                "Fort-de-France, Martinique",
-                "Sainte-Anne, Martinique",
-                "Le Vauclin, Martinique"
+        levelMap.add(new ArrayList<Town>(List.of(
+                new Town("Fort-de-France", "Martinique", 1),
+                new Town("Sainte-Anne", "Martinique", 1),
+                new Town("Le Vauclin", "Martinique", 1)
         )));
     }
 
-    public static List<String> getTowns(int level) {
+    public static List<Town> getTowns(int level) {
 
         if (level <= (levelMap.size() - 1)) {
             return levelMap.get(level);
@@ -91,5 +101,13 @@ public class PirateGame extends Game<Pirate> {
 
         System.out.println(getPlayer(playerIndex).information());
         return false;
+    }
+
+    public boolean findLoot(int playerIndex) {
+        return getPlayer(playerIndex).findLoot();
+    }
+
+    private boolean experienceFeature(int playerIndex) {
+        return getPlayer(playerIndex).experienceFeature();
     }
 }

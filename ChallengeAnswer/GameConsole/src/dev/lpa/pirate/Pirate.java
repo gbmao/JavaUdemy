@@ -1,62 +1,100 @@
 package dev.lpa.pirate;
 
-import dev.lpa.game.Player;
-
 import java.util.*;
 
 public final class Pirate extends Combatent {
 
 
-    private final List<String> townsVisited = new LinkedList<>();
+    private final List<Town> townsVisited = new LinkedList<Town>();
     private List<Loot> loot;
     private List<Combatent> opponents;
     private List<Feature> features;
 
     public Pirate(String name) {
-        super(name, Map.of("level",0,"townIndex", 0));
+        super(name, Map.of("level", 0, "townIndex", 0));
         visitTown();
     }
 
 
-
-
-
     boolean useWeapon() {
-        System.out.println("Used the : " + super.getCurrentWeapon());
-        return visitNextTown();
+
+        int count = opponents.size();
+        if(count > 0) {
+            int opponentIndex = count -1;
+            if (count > 1) {
+                opponentIndex = new Random().nextInt(count);
+            }
+            Combatent combatent = opponents.get(opponentIndex);
+            if ( super.useWeapon(combatent)) {
+                opponents.remove(opponentIndex);
+            } else {
+                return combatent.useWeapon(this);
+            }
+        }
+        return false;
     }
 
     boolean visitTown() {
-        List<String> levelTown = PirateGame.getTowns(value("level"));
-        if(levelTown == null) return true;
-        String town = levelTown.get(value("townIndex"));
+        List<Town> levelTown = PirateGame.getTowns(value("level"));
+        if (levelTown == null) return true;
+        Town town = levelTown.get(value("townIndex"));
         if (town != null) {
             townsVisited.add(town);
+            loot = town.loot();
+            opponents = town.opponents();
+            features = town.features();
             return false;
         }
         return true;
     }
 
+    boolean hasExperience() {
+        return (features != null && features.size() > 0);
+    }
 
-
+    boolean hasOpponents() {
+        return (opponents != null && opponents.size() > 0);
+    }
 
     public String information() {
 
-        var current = ((LinkedList<String>) townsVisited).getLast();
+        var current = ((LinkedList<Town>) townsVisited).getLast();
         String[] simpleNames = new String[townsVisited.size()];
-        Arrays.setAll(simpleNames, i -> townsVisited.get(i).split(",")[0]);
+        Arrays.setAll(simpleNames, i -> townsVisited.get(i).name());
         return "---> " + current +
-                "\nPirate " + super.information()+
+                "\nPirate " + super.information() +
                 "\n\ttownsVisited=" + Arrays.toString(simpleNames);
+    }
+    boolean findLoot() {
+        if(loot.size() > 0) {
+            Loot item = loot.remove(0);
+            System.out.println("Found " + item + "!");
+            adjustValue("score", item.getWorth());
+            System.out.println(name() + "'s score is now " + value("score"));
+        }
+        if (loot.size() == 0) {
+            return visitNextTown();
+        }
+        return false;
+    }
+
+    boolean experienceFeature() {
+        if(!features.isEmpty()) {
+        Feature item = features.remove(0);
+        System.out.println("Ran into " + item + "!");
+        adjustHealth(item.getHealthPoints());
+        System.out.println(name() + "'s health is now " + value("health"));
+        }
+        return (value("health") <= 0);
     }
 
     private boolean visitNextTown() {
 
         int townIndex = value("townIndex");
-        var towns = PirateGame.getTowns(value("level"));
-        if(towns == null) return true;
+        List<Town> towns = PirateGame.getTowns(value("level"));
+        if (towns == null) return true;
 
-        if(townIndex >= (towns.size()-1)) {
+        if (townIndex >= (towns.size() - 1)) {
             System.out.println("Leveling up! Bonus: 500 points!");
             adjustValue("score", 500);
             adjustValue("level", 1);
