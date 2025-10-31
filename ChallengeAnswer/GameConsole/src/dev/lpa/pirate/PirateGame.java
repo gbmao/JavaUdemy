@@ -86,5 +86,10 @@ public class PirateGame extends Game<Pirate> {
         return super.executeGameAction(player, action);
     }
 
+    @Override
+    public boolean printPlayer(int playerIndex) {
 
+        System.out.println(getPlayer(playerIndex).information());
+        return false;
+    }
 }
