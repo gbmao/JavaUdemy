@@ -1,9 +1,8 @@
 package dev.lpa;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -28,7 +27,7 @@ public class Main {
         System.out.println("----------------------------------");
 
 //        List<String> firstOnes = bingoPool.subList(0,15);
-        List<String> firstOnes = new ArrayList<>( bingoPool.subList(0,15));
+        List<String> firstOnes = new ArrayList<>(bingoPool.subList(0, 15));
         firstOnes.sort(Comparator.naturalOrder());
         firstOnes.replaceAll(s -> {
             if (s.indexOf('G') == 0 || s.indexOf("O") == 0) {
@@ -59,11 +58,11 @@ public class Main {
         var tempStream = bingoPool.stream() // source
                 .limit(15) //intermediario
                 .filter(s -> s.indexOf('G') == 0 || s.indexOf("O") == 0) //intermediario
-                .map(s -> s.charAt(0) + "-" +s.substring(1)) // intermediario
+                .map(s -> s.charAt(0) + "-" + s.substring(1)) // intermediario
                 .sorted(); //intermediario
 //                .forEach(s-> System.out.print(s + " ")); //terminal
 
-        tempStream.forEach(s-> System.out.print( s + " "));
+        tempStream.forEach(s -> System.out.print(s + " "));
 
         System.out.println("\n---------------------------------");
 
@@ -73,5 +72,81 @@ public class Main {
 //        for (int i = 0; i < 15; i++) {
 //            System.out.println(bingoPool.get(i));
 //        }
+
+        String[] strings = {"One", "Two", "Three"};
+        var firstStream = Arrays.stream(strings)
+                .sorted(Comparator.reverseOrder());
+//                .forEach(System.out::println);
+
+        var secondStream = Stream.of("Six", "Five", "Four")
+                .map(String::toUpperCase);
+//                .forEach(System.out::println);
+
+        Stream.concat(secondStream, firstStream)
+                .map(s -> s.charAt(0) + " - " + s)
+                .forEach(System.out::println);
+
+
+        Map<Character, int[]> myMap = new LinkedHashMap<>();
+        int bingoIndex = 1;
+        for (char c : "BINGO".toCharArray()) {
+            int[] numbers = new int[15];
+            int labelNo = bingoIndex;
+            Arrays.setAll(numbers, i -> i + labelNo);
+            myMap.put(c, numbers);
+            bingoIndex += 15;
+        }
+
+        myMap.entrySet()
+                .stream()
+                .map(e -> e.getKey() + " has range: " + e.getValue()[0] + " - " +
+                        e.getValue()[e.getValue().length - 1])
+                .forEach(System.out::println);
+
+        Random random = new Random();
+        Stream.generate(() -> random.nextInt(2))
+                .limit(10)
+                .forEach(s -> System.out.print(s + " "));
+
+
+        System.out.println();
+        IntStream.iterate(1, n -> n + 1)
+                .filter(Main::isPrime)
+                .limit(20)
+                .forEach(s -> System.out.print(s + " "));
+
+        System.out.println();
+        IntStream.iterate(1, n -> n + 1)
+                .limit(100)
+                .filter(Main::isPrime)
+                .forEach(s -> System.out.print(s + " "));
+
+        System.out.println();
+        IntStream.iterate(1, n -> n < 100, n -> n + 1)
+                .limit(100)
+                .filter(Main::isPrime)
+                .forEach(s -> System.out.print(s + " "));
+
+        System.out.println();
+        IntStream.range(1,100)
+                .limit(100)
+                .filter(Main::isPrime)
+                .forEach(s -> System.out.print(s + " "));
+
     }
+
+    public static boolean isPrime(int wholeNumber) {
+
+        if (wholeNumber <= 2) {
+            return (wholeNumber == 2);
+        }
+
+        for (int divisor = 2; divisor < wholeNumber; divisor++) {
+            if (wholeNumber % divisor == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
