@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Supplier;
 
 public class Student {
 
@@ -121,7 +122,8 @@ public class Student {
                 courses
         );
         for (Course c : courses) {
-            int lecture = random.nextInt(1, c.lectureCount());
+//            int lecture = random.nextInt(1, c.lectureCount());
+            int lecture = random.nextInt((c.lectureCount() > 30 ? 30 : 1), c.lectureCount());
             int year = random.nextInt(student.getYearEnrolled(), maxYear);
             int month = random.nextInt(1, 13);
             if (year == (maxYear - 1)) {

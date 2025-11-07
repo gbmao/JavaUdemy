@@ -1,5 +1,6 @@
 package dev.lpa;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -88,6 +89,28 @@ public class Main {
 
 
         System.out.println("-------------------------");
+
+//        var students = Arrays.stream(Stream.generate(() -> Student.getRandomStudent(jmc, pymc))
+//                .limit(2)
+//                .toArray());
+
+        Student[] students = new Student[1000];
+//        Arrays.setAll(students, (i) -> Student.getRandomStudent(jmc, pymc));
+//        for (Student s : students) {
+//            s.getRandomStudent(jmc, pymc);
+//        }
+
+        for (int i = 0; i < students.length ; i++) {
+
+            students[i] = Student.getRandomStudent(jmc,pymc);
+        }
+
+        var longTimeLearners = Arrays.stream(students)
+                .filter(s -> (s.getAge() - s.getAgeEnrolled() >= 7) &&
+                        (s.getMonthsSinceActive() < 12))
+                .filter(s -> !s.hasProgrammingExperience())
+                .limit(5)
+                .toArray(Student[]::new);
 
 
     }
