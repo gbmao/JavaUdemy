@@ -112,6 +112,29 @@ public class Main {
                 .limit(5)
                 .toArray(Student[]::new);
 
+//        Edwin Einsen — Instrutor
+//                Resposta
+//        0 voto a favor
+//        1 dia atrás
+//        Hi Gabriel, solid solution! It works, but you can make it cleaner, safer, and faster to read with a few tweaks.
+//
+//
+//
+//                Quick wins
+//
+//        -- Name things by what they are: maleStream -> maleCount, nonBStream -> otherCount.
+//
+//                -- Null-safe equals: prefer "M".equals(s.getGender()) over s.getGender().equals("M"). You mixed both patterns, and pick one.
+//
+//        -- Be consistent: you used <= 12 once and < 12 elsewhere for "active in last year". Choose one.
+//
+//                -- Sort your "top 5" before limit(5), otherwise it's arbitrary.
+//
+//                -- Avoid many passes if you like, or keep them for readability. Both are fine, but here's a compact "one pass per topic" style using collectors.
+//
+//
+//
+//        Keep it up!
 
     }
 }
