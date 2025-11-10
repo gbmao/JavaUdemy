@@ -1,10 +1,9 @@
 package dev.lpa;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class Student {
 
@@ -110,8 +109,17 @@ public class Student {
         return data[random.nextInt(data.length)];
     }
 
+    private static Course[] getRandomSelection(Course... courses) {
+        int courseCount = random.nextInt(0, courses.length + 1);
+        List<Course> courseList = new ArrayList<>(Arrays.asList(courses));
+        Collections.shuffle(courseList);
+        List<Course> selectedCoursers = courseList.subList(0, courseCount);
+        return selectedCoursers.toArray(new Course[0]);
+    }
+
     public static Student getRandomStudent(Course... courses) {
         int maxYear = LocalDate.now().getYear() + 1;
+        Course[] randomCourses = getRandomSelection(courses);
 
         Student student = new Student(
                 getRandomVal("AU", "CA", "CN", "GB", "IN", "UA", "US"),
@@ -119,11 +127,11 @@ public class Student {
                 random.nextInt(18, 90),
                 getRandomVal("M", "F", "U"),
                 random.nextBoolean(),
-                courses
+                randomCourses
         );
         for (Course c : courses) {
 //            int lecture = random.nextInt(1, c.lectureCount());
-            int lecture = random.nextInt((c.lectureCount() > 30 ? 30 : 1), c.lectureCount());
+            int lecture = random.nextInt((c.lectureCount() > 30 ? 30 : 0), c.lectureCount());
             int year = random.nextInt(student.getYearEnrolled(), maxYear);
             int month = random.nextInt(1, 13);
             if (year == (maxYear - 1)) {
