@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -31,7 +33,68 @@ public class Main {
 
 
         for (int i = 0; i < 10; i++) {
-            System.out.println(Math.random());
+            System.out.printf("%1$d = %1$c%n", (int) (Math.random() * 26) + 65);
         }
+
+        System.out.println("-----------------------------");
+
+        Random r = new Random();
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("%1$d = %1$c%n", r.nextInt(65, 91));
+        }
+
+        System.out.println("-----------------------------");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("%1$d = %1$c%n",
+                    r.nextInt('A', 'Z' + 1));
+        }
+
+        System.out.println("-----------------------------");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("%1$d %n", r.nextInt(-10, 11));
+        }
+
+
+        System.out.println("------------------------");
+        r.ints()
+                .limit(10)
+                .forEach(System.out::println);
+
+        System.out.println("------------------------");
+        r.ints(0, 10)
+                .limit(10)
+                .forEach(System.out::println);
+
+        System.out.println("------------------------");
+        r.ints(0, 0, 10)
+//                .limit(10)
+                .forEach(System.out::println);
+
+        System.out.println("------------------------");
+        r.ints(10)
+//                .limit(10)
+                .forEach(System.out::println);
+
+
+
+        long nanoTime = System.nanoTime();
+        Random pseudoRandom = new Random(nanoTime);
+
+        System.out.println("------------------------");
+        pseudoRandom.ints(10, 0, 10)
+//                .limit(10)
+                .forEach(i -> System.out.print(i + " "));
+
+
+        Random notReaRandom = new Random(nanoTime);
+
+        System.out.println("\n------------------------");
+        notReaRandom.ints(10, 0, 10)
+//                .limit(10)
+                .forEach(i -> System.out.print(i + " "));
+
+
     }
 }
