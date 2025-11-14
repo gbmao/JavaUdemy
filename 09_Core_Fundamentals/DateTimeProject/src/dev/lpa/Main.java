@@ -1,7 +1,11 @@
 package dev.lpa;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoField;
 
 public class Main {
@@ -58,5 +62,35 @@ public class Main {
         System.out.println(today.isLeapYear());
         System.out.println(may5.minusYears(2).isLeapYear());
 
-    }
+        System.out.println("-------------------------");
+        may5.datesUntil(may5.plusDays(7))
+                .forEach(System.out::println);
+
+        System.out.println("-------------------------");
+        may5.datesUntil(may5.plusYears(1), Period.ofDays(7))
+                .forEach(System.out::println);
+
+
+        LocalTime time = LocalTime.now();
+        System.out.println(time);
+
+        LocalTime sevenAM = LocalTime.of(7,0);
+        LocalTime seventhirtAM = LocalTime.of(7,30,15);
+
+        System.out.println(sevenAM);
+        System.out.println(seventhirtAM);
+
+        LocalTime sevenPM = LocalTime.parse("19:00");
+        LocalTime sevenThirtyPM = LocalTime.parse("19:30:15.1000");
+
+        System.out.println(sevenPM);
+        System.out.println(sevenThirtyPM);
+
+        System.out.println(sevenThirtyPM.getHour());
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
+
+
+        System.out.println(LocalDate.now().format(dtf));
+        }
 }
