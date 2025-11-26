@@ -9,17 +9,31 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        String fileName = "testing.csv";
+        System.out.println("Current Working Directory (pwd) = " +
+                new File("").getAbsolutePath());
+        String fileName = "files/testing.csv";
 
-        testFile2(null);
 
-        File file = new File(fileName);
+        File file = new File(new File("").getAbsolutePath(),fileName);
+        System.out.println(file.getAbsolutePath());
         if (!file.exists()) {
             System.out.println("I can't run unless this file exists");
-            System.out.println("Quitting application, go figure it out");
             return;
         }
         System.out.println("I'm good to go.");
+
+        for (File f : File.listRoots()) {
+            System.out.println(f);
+        }
+
+        Path path = Paths.get("files/testing.csv");
+
+        System.out.println(file.getAbsolutePath());
+        if (!Files.exists(path)) {
+            System.out.println("2. I can't run unless this file exists");
+            return;
+        }
+        System.out.println("2.I'm good to go.");
     }
 
     private static void testFile(String fileName) {
