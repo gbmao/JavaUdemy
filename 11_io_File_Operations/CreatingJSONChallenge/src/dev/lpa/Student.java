@@ -1,4 +1,4 @@
-package dev.lpa.student;
+package dev.lpa;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -121,25 +121,6 @@ public class Student {
                 studentId, demographics, coursesEnrolled, engagementData);
     }
 
-
-
-    public String toJSON() {
-        StringJoiner courses = new StringJoiner(",","[","]");
-
-        for (Course c : coursesEnrolled) {
-            courses.add(c.toJSON());
-        }
-        String engagement = engagementMap.values().stream()
-                .map(CourseEngagement::toJSON)
-                .collect(Collectors.joining(",","[","]"));
-        return new StringJoiner(", ", "{", "}")
-                .add("\"studentId\":" + studentId)
-                .add("\"demographics\":" + demographics.toJSON())
-                .add("\"coursesEnrolled\":" + courses)
-                .add("\"engagementMap\":" + engagement)
-                .toString();
-    }
-
     public List<String> getEngagementRecords() {
 
         int i = 0;
@@ -181,4 +162,24 @@ public class Student {
     }
 
 
+
+    public String toJSON() {
+
+    var course = new StringJoiner(",","[","]");
+
+    for (Course s : coursesEnrolled) {
+    course.add(s.toJSON());
+    }
+
+    var engagement = engagementMap.values().stream()
+            .map(CourseEngagement::toJSON)
+            .collect(Collectors.joining(",","[","]"));
+
+        return new StringJoiner(", ", "{", "}")
+                .add("\"studentId\":" + studentId)
+                .add("\"demographics\":" + demographics.toJSON())
+                .add("\"coursesEnrolled\":" + course)
+                .add("\"engagementMap\":" + engagement)
+                .toString();
+    }
 }

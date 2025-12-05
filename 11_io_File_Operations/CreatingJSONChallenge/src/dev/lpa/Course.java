@@ -1,4 +1,4 @@
-package dev.lpa.student;
+package dev.lpa;
 
 import java.util.StringJoiner;
 
@@ -8,15 +8,16 @@ public record Course(String courseCode, String title) {
         return 15;
     }
 
+    @Override
+    public String toString() {
+        return "%s %s".formatted(courseCode, title);
+    }
+
+
     public String toJSON() {
         return new StringJoiner(", ", "{", "}")
                 .add("\"courseCode\":\"" + courseCode + "\"")
                 .add("\"title\":\"" + title + "\"")
                 .toString();
-    }
-
-    @Override
-    public String toString() {
-        return "%s %s".formatted(courseCode, title);
     }
 }

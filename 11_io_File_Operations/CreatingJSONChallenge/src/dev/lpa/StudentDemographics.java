@@ -1,4 +1,4 @@
-package dev.lpa.student;
+package dev.lpa;
 
 import java.util.StringJoiner;
 
@@ -12,6 +12,7 @@ public record StudentDemographics(String countryCode, int enrolledMonth,
                 enrolledMonth,enrolledYear, ageAtEnrollment,gender,
                 previousProgrammingExperience);
     }
+
 
     public String toJSON() {
         return new StringJoiner(", ", "{", "}")
