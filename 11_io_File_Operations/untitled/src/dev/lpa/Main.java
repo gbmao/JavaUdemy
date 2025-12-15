@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +13,40 @@ public class Main {
     map.put("b","aaa");
     map.put("c","cake");
 
-        System.out.println(mapAB2(map));
+//        System.out.println(mapAB2(map));
 
+//        var  = LocalDate.of(2024,9,10);
+        var birthDate = LocalDate.of(2023,10,15);
+
+
+
+
+            var today = LocalDate.of(2025,11,15);
+            var age = today.getYear() - birthDate.getYear();
+            int months = 0;
+
+            if (today.getMonthValue() < birthDate.getMonthValue() ||
+                    (today.getMonthValue() == birthDate.getMonthValue() && today.getDayOfMonth() < birthDate.getDayOfMonth())) {
+                age--;
+                months = today.getMonthValue() - birthDate.getMonthValue();
+                months = 12 + months;
+            } else {
+               months =  birthDate.getMonthValue() - today.getMonthValue();
+                months = 12 + months;
+            }
+
+            var p = Period.between(birthDate, today);
+
+
+        System.out.printf("age : " + p.getYears() + " months " + p.getMonths());
+
+    }
+
+    public static int age(int age){
+        return age / 12;
+    }
+    public static int month(int age) {
+        return age % 12;
     }
 
     public static Map<String, String> mapAB2(Map<String, String> map) {
@@ -26,7 +60,5 @@ public class Main {
         return map;
     }
 
-    public static ListNode teste(ListNode head) {
 
-    }
 }
