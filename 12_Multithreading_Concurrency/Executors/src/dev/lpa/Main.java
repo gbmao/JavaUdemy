@@ -1,8 +1,7 @@
 package dev.lpa;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.concurrent.*;
 
 class ColorThreadFactory implements ThreadFactory {
 
@@ -23,10 +22,10 @@ class ColorThreadFactory implements ThreadFactory {
 
         Thread thread = new Thread(r);
         String name = threadName;
-        if(name == null){
+        if (name == null) {
             name = ThreadColor.values()[colorValue].name();
         }
-        if(++colorValue > (ThreadColor.values().length - 1)) {
+        if (++colorValue > (ThreadColor.values().length - 1)) {
             colorValue = 1;
         }
         thread.setName(name);
@@ -36,8 +35,73 @@ class ColorThreadFactory implements ThreadFactory {
 
 public class Main {
 
-
     public static void main(String[] args) {
+
+        var multiExecutor = Executors.newCachedThreadPool();
+        List<Callable<Integer>> taskList = List.of(
+                () -> Main.sum(1,10,1,"red"),
+                () -> Main.sum(10,100,10,"blue"),
+                () -> Main.sum(2,20,2,"green")
+        );
+
+
+        try {
+            var results = multiExecutor.invokeAll(taskList);
+            for (var result : results) {
+                System.out.println(result.get(500, TimeUnit.MILLISECONDS));
+            }
+        } catch (InterruptedException | TimeoutException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            multiExecutor.shutdown();
+        }
+    }
+
+    public static void cachedmain(String[] args) {
+        var multiExecutor = Executors.newCachedThreadPool();
+        try {
+            var redValue = multiExecutor.submit(
+                    () -> Main.sum(1, 10, 1, "red"));
+            var blueValue = multiExecutor.submit(
+                    () -> Main.sum(10, 100, 10, "blue"));
+            var greenValue = multiExecutor.submit(
+                    () -> Main.sum(2, 20, 2, "green"));
+
+            try {
+                System.out.println(redValue.get(500, TimeUnit.SECONDS));
+                System.out.println(blueValue.get(500, TimeUnit.SECONDS));
+                System.out.println(greenValue.get(500, TimeUnit.SECONDS));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+//            multiExecutor.execute(
+//                    () -> Main.sum(1, 10, 1, "yellow"));
+//            multiExecutor.execute(
+//                    () -> Main.sum(10, 100, 10, "cyan"));
+//            multiExecutor.execute(
+//                    () -> Main.sum(2, 20, 2, "purple"));
+
+//            try {
+//                TimeUnit.SECONDS.sleep(1);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//            System.out.println("Next Tasks Will get executed");
+//            for (var color :
+//                    new String[]{"red", "blue", "green", "yellow",
+//                    "purple","cyan","black"}) {
+//                multiExecutor.execute(() -> Main.sum(1, 10, 1, color));
+//            }
+
+        } finally {
+            multiExecutor.shutdown();
+        }
+    }
+
+    public static void fixedmain(String[] args) {
 
         int count = 3;
         var multiExecutor = Executors.newFixedThreadPool(
@@ -64,7 +128,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        if(isDone) {
+        if (isDone) {
             System.out.println("Blue is finished, starting yellow");
 
 
@@ -73,11 +137,11 @@ public class Main {
             yellowExecutor.execute(Main::countDown);
             yellowExecutor.shutdown();
             try {
-                isDone = yellowExecutor.awaitTermination(500,TimeUnit.SECONDS);
+                isDone = yellowExecutor.awaitTermination(500, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if(isDone) {
+            if (isDone) {
                 System.out.println("Yellow is finished starting red");
                 var redExecutor = Executors.newSingleThreadExecutor(
                         new ColorThreadFactory(ThreadColor.ANSI_RED));
@@ -142,6 +206,25 @@ public class Main {
             System.out.println(color + " " +
                     threadName.replace("ANSI_", "") + " " + i);
         }
+    }
 
+
+    private static void sum(int start, int end, int delta, String colorString) {
+        var threadColor = ThreadColor.ANSI_RESET;
+        try {
+            threadColor = ThreadColor.valueOf("ANSI_" +
+                    colorString.toUpperCase());
+        } catch (IllegalArgumentException ignore) {
+            // user may pass a bad color name, Will just ignore this error.
+        }
+
+        String color = threadColor.color();
+        int sum = 0;
+        for (int i = start; i <= end; i += delta) {
+            sum += i;
+        }
+
+        System.out.println(color + Thread.currentThread().getName() + ", "
+                + colorString + " " + sum);
     }
 }
