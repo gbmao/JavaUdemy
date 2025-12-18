@@ -7,11 +7,32 @@ import java.util.Map;
 
 public class Main {
 
+
     public static void main(String[] args) {
+
+        System.out.println(countYZ("!!day--yaz!!"));
+    }
+
+    public static int countYZ(String str) {
+        int count = 0;
+        var teste = str.split("[^a-zA-Z]+");
+        for (int i = 0; i < teste.length; i++) {
+
+           if (teste[i].toLowerCase().charAt(teste[i].length() - 1) == 'z'  ||
+                   teste[i].toLowerCase().charAt(teste[i].length() - 1) == 'y') {
+               count++;
+           }
+        }
+        return count;
+    }
+
+    public static void nhamain(String[] args) {
     Map<String, String> map = new HashMap<>();
     map.put("a","aaa");
     map.put("b","aaa");
-    map.put("c","cake");
+
+
+
 
 //        System.out.println(mapAB2(map));
 
