@@ -27,9 +27,17 @@ public class MusicDML {
                 insertArtistAlbum(statement, columnValue, columnValue);
 
             } else {
-//                deleteRecord(statement, tableName, columnName, columnValue);
-                updateRecord(statement,tableName,columnName,columnValue,
-                        columnName, columnValue.toUpperCase());
+
+                try {
+                    deleteArtistAlbum(connection,statement,
+                            columnValue, columnValue);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                executeSelect(statement, "music.albumview", "album_name",
+                        columnValue);
+                executeSelect(statement, "music.albums", "album_name",
+                        columnValue);
             }
 
         } catch (SQLException e) {
@@ -186,5 +194,27 @@ public class MusicDML {
 
     }
 
+    private static void deleteArtistAlbum(Connection conn, Statement statement,
+                                          String artistName, String albumName)
+        throws SQLException {
+        System.out.println("AUTOCOMMIT = " + conn.getAutoCommit());
+        String deleteSongs = """
+                
+                DELETE FROM music.songs WHERE album_id =
+                (SELECT ALBUM_ID from music.albums WHERE album_name = '%s')
+                """.formatted(albumName);
+
+        int deletedSongs = statement.executeUpdate(deleteSongs);
+        System.out.printf("Deleted %d rows from music.songs%n", deletedSongs);
+        String deleteAlbums = "DELETE FROM music.albums WHERE album_name='%s'"
+                .formatted(albumName);
+        int deletedAlbums = statement.executeUpdate(deleteAlbums);
+        System.out.printf("Deleted %d rows from music.albums%n", deletedAlbums);
+        String deleteArtist = "DELETE FROM music.artists WHERE artist_name='%s'"
+                .formatted(artistName);
+        int deletedArtists = statement.executeUpdate(deleteArtist);
+        System.out.printf("Deleted %d rows from music.artists%n", deletedArtists);
+
+    }
 
 }
