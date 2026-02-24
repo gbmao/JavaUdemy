@@ -48,14 +48,25 @@ class CalculatorTest {
 
     }
 
+//    @Disabled(" need work on it")
     @DisplayName("Divided By Zero")
     @Test
     void testIntegerDivision_WhenDividendIsDividedByZero_ShouldThrowArithmeticException() {
 
         System.out.println("divided by ZERO method.");
-        assertThrows(ArithmeticException.class, () -> {
-            calculator.integerDivision(5,0);
+
+        // Arrange
+        int dividend =4;
+        int divisor = 0;
+        String expectedExceptionMessage = "/ by zero";
+
+        // Act && Assert
+
+       ArithmeticException actualException = assertThrows(ArithmeticException.class, () -> {
+            calculator.integerDivision(dividend,divisor);
         });
+
+       assertEquals(expectedExceptionMessage, actualException.getMessage());
     }
 
     @DisplayName("Test 4 - 1 = 3")
@@ -72,5 +83,45 @@ class CalculatorTest {
 
         assertEquals(expectedResult, result,
                 () -> minuend + "-" + subtrahend + " did not produce " + expectedResult);
+    }
+
+    @Test
+    void testSquareRoot_WhenCallingZero_ShouldThrowIllegalArgumentException(){
+
+        // Arrange
+        int number = 0;
+
+        // Act
+
+        String expectedResult = "Cannot calculate square root of negative number";
+
+        IllegalArgumentException actualResult = assertThrows(IllegalArgumentException.class, () -> {
+            calculator.squareRoot(number);
+        });
+
+        // Assertion
+
+        assertEquals(expectedResult, actualResult.getMessage());
+    }
+
+    @Test
+    void testSquareRoot_WhenCallingNegativeNumber_ShouldThrowIllegalArgumentException() {
+
+        // Arrange
+
+        int number = -5;
+        String expectedResult = "Cannot calculate square root of negative number";
+
+        // Act
+
+        IllegalArgumentException actualResult = assertThrows(IllegalArgumentException.class,
+                () -> {
+            calculator.squareRoot(number);
+                });
+
+
+        // Assert
+
+        assertEquals(expectedResult,actualResult.getMessage());
     }
 }
