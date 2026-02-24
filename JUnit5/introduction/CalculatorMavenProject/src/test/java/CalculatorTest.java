@@ -1,4 +1,11 @@
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Test Math Operation in Calculator class")
@@ -69,21 +76,31 @@ class CalculatorTest {
        assertEquals(expectedExceptionMessage, actualException.getMessage());
     }
 
-    @DisplayName("Test 4 - 1 = 3")
-    @Test
-    void integerSubtraction() {
+    @DisplayName("Test integer subtraction [minuend, subtrahend, expectedResult]")
+    @ParameterizedTest
+//    @MethodSource("integerSubtractionInputParameters")
+//    @CsvSource({"33, 1, 32",
+//            "24, 1, 23",
+//            "54, 1, 53"
+//    })
+    @CsvFileSource(resources = "/integerSubstraction.csv")
+    void integerSubtraction(int minuend, int subtrahend, int expectedResult) {
 
-        System.out.println("4 -1 = 3 method.");
-
-        int minuend = 4;
-        int subtrahend = 1;
-        int expectedResult = 3;
+        System.out.println("Running test: " + minuend + "-" + subtrahend + "=" + expectedResult);
 
         int result = calculator.integerSubtraction(minuend, subtrahend);
 
         assertEquals(expectedResult, result,
                 () -> minuend + "-" + subtrahend + " did not produce " + expectedResult);
     }
+
+//    private static Stream<Arguments> integerSubtractionInputParameters() {
+//        return Stream.of(
+//                Arguments.of(33,1,32),
+//                Arguments.of(24,1,23),
+//                Arguments.of(10,15,-5)
+//        );
+//    }
 
     @Test
     void testSquareRoot_WhenCallingZero_ShouldThrowIllegalArgumentException(){
