@@ -34,6 +34,10 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Invalid password");
         }
 
+        if(password.length() > 8) {
+            throw new IllegalArgumentException("Password length higher than 8");
+        }
+
 
 
         return new User(firstName, lastName, email, UUID.randomUUID().toString());

@@ -23,8 +23,8 @@ public class UserServiceTest {
         firstName = "Sergey";
         lastName = "Kargolopov";
         email = "test@test.com";
-        password = "123456789";
-        repeatPassword = "123456789";
+        password = "12345678";
+        repeatPassword = "12345678";
     }
 
     @DisplayName("User object created")
@@ -124,6 +124,24 @@ public class UserServiceTest {
 
         // Assert
         assertEquals(expectedMessage, thrown.getMessage());
+    }
+
+    @DisplayName("Password length above eight cause exception")
+    @Test
+    void testCreateUser_whenPasswordLengthIsAboveEight_shouldReturnIllegalArgumentException() {
+        // Arrange
+        password = "123456789";
+        repeatPassword = "123456789";
+        String expectedMessage = "Password length higher than 8";
+
+        // Act
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Password with length above 8 should return Illegal Argument Exception");
+
+        // Assert
+        assertEquals(expectedMessage, thrown.getMessage());
+
     }
 
 
