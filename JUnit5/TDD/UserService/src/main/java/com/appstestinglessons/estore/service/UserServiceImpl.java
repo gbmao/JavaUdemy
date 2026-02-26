@@ -1,11 +1,20 @@
 package com.appstestinglessons.estore.service;
 
 import com.UserService;
+import com.appstestinglessons.estore.data.UsersRepository;
+import com.appstestinglessons.estore.data.UsersRepositoryImpl;
 import com.appstestinglessons.estore.model.User;
 
 import java.util.UUID;
 
 public class UserServiceImpl implements UserService {
+
+    UsersRepository usersRepository;
+
+    public UserServiceImpl(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
+
     @Override
     public User createUser(String firstName,
                            String lastName,
@@ -38,6 +47,11 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Password length lower than 8");
         }
 
+        User user = new User(firstName,lastName,email,UUID.randomUUID().toString());
+
+
+        boolean isUserCreated = usersRepository.save(user);
+        if(!isUserCreated) throw new UserServiceException("Could not create user");
 
 
         return new User(firstName, lastName, email, UUID.randomUUID().toString());

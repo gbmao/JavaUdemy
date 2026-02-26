@@ -1,16 +1,28 @@
 package com.appstestinglessons.estore.service;
 
 import com.UserService;
+import com.appstestinglessons.estore.data.UsersRepository;
 import com.appstestinglessons.estore.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-    UserService userService;
+    @InjectMocks
+    UserServiceImpl userService;
+
+    @Mock
+    UsersRepository usersRepository;
     String firstName;
     String lastName;
     String email;
@@ -19,7 +31,6 @@ public class UserServiceTest {
 
     @BeforeEach
     void init() {
-        userService = new UserServiceImpl();
         firstName = "Sergey";
         lastName = "Kargolopov";
         email = "test@test.com";
@@ -30,6 +41,10 @@ public class UserServiceTest {
     @DisplayName("User object created")
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObject() {
+
+        // Arrange
+        Mockito.when(usersRepository.save(any(User.class))).thenReturn(true);
+
         //Act
         User user = userService.createUser(firstName, lastName, email, password, repeatPassword);
 
@@ -40,6 +55,9 @@ public class UserServiceTest {
         assertEquals(lastName, user.getLastName(), "User's lastname is incorrect");
         assertEquals(email, user.getEmail(), "User's email is incorrect");
         assertNotNull(user.getId(), "User is is missing");
+        Mockito.verify(usersRepository, times(1))
+                .save(any(User.class));
+
     }
 
     @DisplayName("Empty first name causes correct exception")
