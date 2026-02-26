@@ -25,6 +25,10 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("User's email is empty");
         }
 
+        if(!password.equals(repeatPassword)) {
+            throw new IllegalArgumentException("Password does not match");
+        }
+
 
 
         return new User(firstName, lastName, email, UUID.randomUUID().toString());

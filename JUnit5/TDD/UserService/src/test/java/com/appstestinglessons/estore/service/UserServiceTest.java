@@ -76,18 +76,36 @@ public class UserServiceTest {
         assertEquals(expectedThrowMessage, thrown.getMessage());
     }
 
+    @DisplayName("Empty email return exception")
     @Test
     void testCreateUser_whenEmailIsEmpty_throwsIllegalArgumentException() {
         // Arrange
         email = "";
         String expectedThrownMessage = "User's email is empty";
+
         // Act
        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
             userService.createUser(firstName, lastName, email, password, repeatPassword);
         },"Empty email should have thrown Illegal Argument Exception");
+
         // Assert
         assertEquals(expectedThrownMessage, thrown.getMessage());
+    }
 
+    @DisplayName("Password not equals return exception with message")
+    @Test
+    void testCreateUser_whenPasswordIsNotEqual_throwsIllegalArgumentException(){
+        // Arrange
+        repeatPassword = "1234";
+        String expectedMessage = "Password does not match";
+
+        // Act
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+         userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Not matching password should be thrown Illegal Argument Exception");
+
+        // Assert
+        assertEquals(expectedMessage, thrown.getMessage());
 
     }
 
