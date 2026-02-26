@@ -3,6 +3,8 @@ package com.appstestinglessons.estore.service;
 import com.UserService;
 import com.appstestinglessons.estore.model.User;
 
+import java.util.UUID;
+
 public class UserServiceImpl implements UserService {
     @Override
     public User createUser(String firstName,
@@ -11,6 +13,10 @@ public class UserServiceImpl implements UserService {
                            String password,
                            String repeatPassword) {
 
-        return new User(firstName, lastName, email);
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("User's first name is empty");
+        }
+
+        return new User(firstName, lastName, email, UUID.randomUUID().toString());
     }
 }

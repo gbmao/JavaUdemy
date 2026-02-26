@@ -2,6 +2,7 @@ package com.appstestinglessons.estore.service;
 
 import com.UserService;
 import com.appstestinglessons.estore.model.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,17 +10,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
 
+    UserService userService;
+    String firstName;
+    String lastName;
+    String email;
+    String password;
+    String repeatPassword;
+
+    @BeforeEach
+    void init() {
+        userService = new UserServiceImpl();
+        firstName = "Sergey";
+        lastName = "Kargolopov";
+        email = "test@test.com";
+        password = "123456789";
+        repeatPassword = "123456789";
+    }
+
     @DisplayName("User object created")
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObject() {
-        // Arrange
-        UserService userService = new UserServiceImpl();
-        String firstName = "Sergey";
-        String lastName = "Kargolopov";
-        String email = "test@test.com";
-        String password = "123456789";
-        String repeatPassword = "123456789";
-
         //Act
         User user = userService.createUser(firstName, lastName, email, password, repeatPassword);
 
@@ -29,6 +39,25 @@ public class UserServiceTest {
         assertEquals(firstName, user.getFirstName(), "User's firstName is incorrect");
         assertEquals(lastName, user.getLastName(), "User's lastname is incorrect");
         assertEquals(email, user.getEmail(), "User's email is incorrect");
+        assertNotNull(user.getId(), "User is is missing");
     }
+
+    @DisplayName("Empty first name causes correct exception")
+    @Test
+    void testCreateUser_whenFirstNameIsEmpty_throwsIllegalArgumentException() {
+        // Arrange
+        String firstName = "";
+
+        String expectedExceptionMessage = "User's first name is empty";
+
+
+        // Act & Assert
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Empty first name should have caused an Illegal argument exception");
+
+        assertEquals(expectedExceptionMessage, thrown.getMessage());
+    }
+
 
 }
