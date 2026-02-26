@@ -30,12 +30,12 @@ public class UserServiceImpl implements UserService {
         }
 
         // I don't need to check repeatPassword since it will throw password does not match
-        if (password.isEmpty()) {
+        if (password == null || password.isEmpty()) {
             throw new IllegalArgumentException("Invalid password");
         }
 
-        if(password.length() > 8) {
-            throw new IllegalArgumentException("Password length higher than 8");
+        if(password.length() < 8) {
+            throw new IllegalArgumentException("Password length lower than 8");
         }
 
 
