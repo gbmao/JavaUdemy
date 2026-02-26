@@ -84,9 +84,9 @@ public class UserServiceTest {
         String expectedThrownMessage = "User's email is empty";
 
         // Act
-       IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
             userService.createUser(firstName, lastName, email, password, repeatPassword);
-        },"Empty email should have thrown Illegal Argument Exception");
+        }, "Empty email should have thrown Illegal Argument Exception");
 
         // Assert
         assertEquals(expectedThrownMessage, thrown.getMessage());
@@ -94,19 +94,36 @@ public class UserServiceTest {
 
     @DisplayName("Password not equals return exception with message")
     @Test
-    void testCreateUser_whenPasswordIsNotEqual_throwsIllegalArgumentException(){
+    void testCreateUser_whenPasswordIsNotEqual_throwsIllegalArgumentException() {
         // Arrange
         repeatPassword = "1234";
         String expectedMessage = "Password does not match";
 
         // Act
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
-         userService.createUser(firstName, lastName, email, password, repeatPassword);
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
         }, "Not matching password should be thrown Illegal Argument Exception");
 
         // Assert
         assertEquals(expectedMessage, thrown.getMessage());
 
+    }
+
+    @DisplayName("Password empty return Illegal Argument")
+    @Test
+    void testCreateUser_whenPasswordIsEmpty_throwsIllegalArgumentException() {
+        // Arrange
+        password = "";
+        repeatPassword = "";
+        String expectedMessage = "Invalid password";
+
+        // Act
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Empty password should thrown Illegal Argument Exception");
+
+        // Assert
+        assertEquals(expectedMessage, thrown.getMessage());
     }
 
 

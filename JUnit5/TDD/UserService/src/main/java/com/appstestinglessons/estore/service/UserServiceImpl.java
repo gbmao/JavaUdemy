@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Password does not match");
         }
 
+        // I don't need to check repeatPassword since it will throw password does not match
+        if (password.isEmpty()) {
+            throw new IllegalArgumentException("Invalid password");
+        }
+
 
 
         return new User(firstName, lastName, email, UUID.randomUUID().toString());
