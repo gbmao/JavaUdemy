@@ -85,16 +85,37 @@ public class UserServiceTest {
 
 
         doThrow(EmailNotificationServiceException.class)
-                .when(emailVerificationService).scheduleEmailConfirmation(any(User.class));
+                .when(emailVerificationService)
+                .scheduleEmailConfirmation(any(User.class));
+
 
         // Act
         assertThrows(UserServiceException.class, () -> {
-        userService.createUser(firstName, lastName, email, password, repeatPassword);
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
         }, "Should have thrown UserServiceException instead");
 
         // Assert
         verify(emailVerificationService, times(1)).
-        scheduleEmailConfirmation(any(User.class));
+                scheduleEmailConfirmation(any(User.class));
+    }
+
+    @DisplayName("Schedule Email Confirmation is Executed")
+    @Test
+    void testCreateUser_whenUserCreated_schedulesEmailConfirmation(){
+        // Arrange
+        when(usersRepository.save(any(User.class))).thenReturn(true);
+
+        doCallRealMethod().when(emailVerificationService)
+                .scheduleEmailConfirmation(any(User.class));
+
+        // Act
+
+        userService.createUser(firstName, lastName, email, password, repeatPassword);
+
+        // Assert
+
+        verify(emailVerificationService, times(1))
+                .scheduleEmailConfirmation(any(User.class));
     }
 
     @DisplayName("Empty first name causes correct exception")
