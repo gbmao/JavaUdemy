@@ -22,6 +22,9 @@ public class UserServiceTest {
     UserServiceImpl userService;
 
     @Mock
+    EmailVerificationServiceImpl emailVerificationService;
+
+    @Mock
     UsersRepository usersRepository;
     String firstName;
     String lastName;
@@ -58,6 +61,40 @@ public class UserServiceTest {
         Mockito.verify(usersRepository, times(1))
                 .save(any(User.class));
 
+    }
+
+    @DisplayName("If save() method causes RuntimeException, a UserServiceException is thrown")
+    @Test
+    void testCreateUser_whenSaveMethodThrowsException_thenThrowsUserServiceException() {
+        // Arrange
+        when(usersRepository.save(any(User.class))).thenThrow(RuntimeException.class);
+
+        // Act
+        assertThrows(UserServiceException.class, () -> {
+            User user = userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Should have thrown UserServiceException instead");
+
+        // Assert
+    }
+
+    @DisplayName("EmailNotificationException is handled")
+    @Test
+    void testCreateUser_whenEmailVerificationExceptionThrown_throwsUserServiceException() {
+        // Arrange
+        when(usersRepository.save(any(User.class))).thenReturn(true);
+
+
+        doThrow(EmailNotificationServiceException.class)
+                .when(emailVerificationService).scheduleEmailConfirmation(any(User.class));
+
+        // Act
+        assertThrows(UserServiceException.class, () -> {
+        userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Should have thrown UserServiceException instead");
+
+        // Assert
+        verify(emailVerificationService, times(1)).
+        scheduleEmailConfirmation(any(User.class));
     }
 
     @DisplayName("Empty first name causes correct exception")

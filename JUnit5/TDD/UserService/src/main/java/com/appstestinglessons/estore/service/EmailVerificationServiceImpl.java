@@ -1,0 +1,10 @@
+package com.appstestinglessons.estore.service;
+
+import com.appstestinglessons.estore.model.User;
+
+public class EmailVerificationServiceImpl implements EmailVerificationService {
+    @Override
+    public void scheduleEmailConfirmation(User user) {
+        // Put user details into email queue
+    }
+}
