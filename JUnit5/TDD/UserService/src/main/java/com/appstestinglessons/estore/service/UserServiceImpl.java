@@ -72,4 +72,8 @@ public class UserServiceImpl implements UserService {
 
         return new User(firstName, lastName, email, UUID.randomUUID().toString());
     }
+
+    public void demoMethod(){
+        System.out.println("Demo method");
+    }
 }
